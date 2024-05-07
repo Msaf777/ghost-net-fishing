@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="ghost_net_fishing@localhost">
+  <database-model serializer="dbm" dbms="DERBY" family-id="DERBY" format-version="4.52">
+    <root id="1">
+      <ServerVersion>10.15.2.0</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="APP">
+      <Current>1</Current>
+      <LastIntrospectionLocalTimestamp>2024-05-07.09:56:48</LastIntrospectionLocalTimestamp>
+    </schema>
+    <schema id="3" parent="1" name="NULLID"/>
+    <schema id="4" parent="1" name="SQLJ"/>
+    <schema id="5" parent="1" name="SYS"/>
+    <schema id="6" parent="1" name="SYSCAT"/>
+    <schema id="7" parent="1" name="SYSCS_DIAG"/>
+    <schema id="8" parent="1" name="SYSCS_UTIL"/>
+    <schema id="9" parent="1" name="SYSFUN"/>
+    <schema id="10" parent="1" name="SYSIBM"/>
+    <schema id="11" parent="1" name="SYSPROC"/>
+    <schema id="12" parent="1" name="SYSSTAT"/>
+    <table id="13" parent="2" name="GHOSTNET"/>
+    <table id="14" parent="2" name="PERSON"/>
+    <column id="15" parent="13" name="ID">
+      <DasType>BIGINT|-5s</DasType>
+      <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="16" parent="13" name="LATITUDE">
+      <DasType>DOUBLE|8s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="17" parent="13" name="LONGITUDE">
+      <DasType>DOUBLE|8s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="18" parent="13" name="ESTIMATED_SIZE">
+      <DasType>VARCHAR(255)|12s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="19" parent="13" name="STATUS">
+      <DasType>VARCHAR(50)|12s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="20" parent="14" name="COLUMN_NAME">
+      <DasType>BIGINT|-5s</DasType>
+      <DefaultExpression>AUTOINCREMENT: start 1 increment 1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="21" parent="14" name="NAME">
+      <DasType>VARCHAR(255)|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="22" parent="14" name="PHONE_NUMBER">
+      <DasType>VARCHAR(255)|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="23" parent="14" name="PERSON_TYPE">
+      <DasType>VARCHAR(50)|12s</DasType>
+      <Position>4</Position>
+    </column>
+  </database-model>
+</dataSource>
