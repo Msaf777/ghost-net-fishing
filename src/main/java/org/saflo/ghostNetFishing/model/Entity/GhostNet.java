@@ -1,12 +1,13 @@
-package org.saflo.ghostNetFishing.model;
+package org.saflo.ghostNetFishing.model.Entity;
 
 import jakarta.persistence.*;
+import org.saflo.ghostNetFishing.model.enums.GhostNetStatus;
 
 @Entity
 @Table(name="GHOSTNET")
 public class GhostNet {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(nullable=false)
@@ -25,6 +26,7 @@ public class GhostNet {
     public GhostNet(){}
 
     //Getter und Setter
+    public Long getId() {return id;}
 
     public Double getLatitude() {
         return latitude;

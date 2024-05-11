@@ -1,4 +1,4 @@
-package org.saflo.ghostNetFishing.model;
+package org.saflo.ghostNetFishing.model.enums;
 
 public enum PersonType {
     REPORTER, RECOVERER

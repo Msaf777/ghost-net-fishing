@@ -9,8 +9,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="Project init">
+    <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/GhostNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/GhostNet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/GhostNetStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/enums/GhostNetStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/PersonType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/enums/PersonType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/DatabaseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/DatabaseUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.xhtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,9 +31,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="jsf" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
+        <option value="jsf" />
       </list>
     </option>
   </component>
@@ -77,8 +87,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "advanced.settings",
     "vue.rearranger.settings.migration": "true"
@@ -97,6 +107,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\CC-Student\IdeaProjects\ghost-net-fishing" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.saflo.ghostNetFishing.model.enums" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -107,10 +120,10 @@
   </component>
   <component name="RunManager">
     <configuration name="TomEE 10.1.20" type="TomeeConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="TomEE 10.1.20" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="OPEN_IN_BROWSER" value="false" />
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/ghost-net-fishing-1.0-SNAPSHOT/" />
-      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
-      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+      <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="ghost-net-fishing:war exploded">
           <settings>
@@ -295,7 +308,8 @@
       <workItem from="1714547913050" duration="8971000" />
       <workItem from="1714597933356" duration="2925000" />
       <workItem from="1714985929043" duration="1193000" />
-      <workItem from="1715021327574" duration="17423000" />
+      <workItem from="1715021327574" duration="48777000" />
+      <workItem from="1715322308658" duration="27738000" />
     </task>
     <task id="LOCAL-00001" summary="Project init">
       <option name="closed" value="true" />
@@ -305,7 +319,23 @@
       <option name="project" value="LOCAL" />
       <updated>1714598065072</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Project init">
+      <option name="closed" value="true" />
+      <created>1715076763176</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715076763178</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add new classes and configuration for database integration&#10;&#10;- Created DatabaseUtil class for database operations&#10;- Added new model classes: GhostNet and Person&#10;- Established enums: GhostNetStatus and PersonType for status and type management&#10;- Set up persistence.xml for Derby database connection via JPA">
+      <option name="closed" value="true" />
+      <created>1715076973990</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715076973990</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,6 +354,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Project init" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project init" />
+    <MESSAGE value="Add new classes and configuration for database integration&#10;&#10;- Created DatabaseUtil class for database operations&#10;- Added new model classes: GhostNet and Person&#10;- Established enums: GhostNetStatus and PersonType for status and type management&#10;- Set up persistence.xml for Derby database connection via JPA" />
+    <MESSAGE value="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities." />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities." />
   </component>
 </project>

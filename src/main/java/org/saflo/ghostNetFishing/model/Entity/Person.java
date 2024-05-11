@@ -1,13 +1,14 @@
-package org.saflo.ghostNetFishing.model;
+package org.saflo.ghostNetFishing.model.Entity;
 
 import jakarta.persistence.*;
+import org.saflo.ghostNetFishing.model.enums.PersonType;
 
 
 @Entity
 @Table(name = "PERSON")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(length = 255)
