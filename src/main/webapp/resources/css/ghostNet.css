@@ -1,0 +1,43 @@
+.ghost-nets__body {
+    padding: var(--padding);
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.ghost-net__map {
+    margin-bottom: 2rem;
+    width:100%;
+    height: 30vh;
+}
+
+
+
+.ghost-nets__table-container {
+    width: 100%;
+    height: 65vh;
+    overflow-y: scroll;
+}
+
+
+@media (max-height: 540px) {
+    .ghost-net__map {
+        display: none;
+    }
+    .ghost-nets__table-container {
+        height: 100vh;
+    }
+}
+
+@media (max-height: 675px) {
+    .ghost-nets__body {
+       padding-top: 0.5rem;
+    }
+}
+
+@media (max-height: 900px) {
+    .ghost-net__map {
+        margin-bottom: .5rem;
+    }
+}
+

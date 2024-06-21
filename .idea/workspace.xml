@@ -10,23 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities.">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/home.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/GhostNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/GhostNet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/GhostNetStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/enums/GhostNetStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/PersonType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/enums/PersonType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/GhostNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/GhostNet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/DatabaseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/DatabaseUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.xhtml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -34,10 +36,17 @@
         <option value="Enum" />
         <option value="Class" />
         <option value="jsf" />
+        <option value="CSS File" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -59,6 +68,9 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -73,15 +85,53 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "JUnit.GhostNetControllerTest.executor": "Run",
+    "JUnit.GhostNetControllerTest.testAddGhostNet.executor": "Run",
+    "JUnit.GhostNetControllerTest.testPopulateMapWithGhostNets.executor": "Run",
+    "JUnit.GhostNetControllerTest.testUpdateStatus.executor": "Run",
+    "JUnit.GhostNetControllerTest.whenAddGhostNet_thenGhostNetIsAdded.executor": "Run",
+    "JUnit.GhostNetControllerTest.whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter.executor": "Run",
+    "JUnit.GhostNetDAOTest.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenAddGhostNetCalled_andExceptionOccurs_thenTransactionIsRolledBack.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenAddGhostNetCalled_thenGhostNetIsPersisted.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenFindGhostNetCalled_thenGhostNetIsReturned.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenGetAllGhostNetsCalled_thenEmptyListIsReturned.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenGetAllGhostNetsCalled_thenListOfGhostNetsIsReturned.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenGetAvailableGhostNetsCalled_thenListOfGhostNetsIsReturned.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenGetFilteredGhostNetsCalled_thenListOfGhostNetsIsReturned.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenUpdateGhostNetCalled_thenGhostNetIsMerged.executor": "Run",
+    "JUnit.LoginControllerTest.executor": "Run",
+    "JUnit.LoginControllerTest.whenLoginAnonymously_thenRedirectToAddGhostNet.executor": "Run",
+    "JUnit.LoginControllerTest.whenLoginWithInvalidUser_thenShowErrorMessage.executor": "Run",
+    "JUnit.LoginControllerTest.whenLoginWithValidUser_thenRedirectToHome.executor": "Run",
+    "JUnit.LoginControllerTest.whenLogout_thenRedirectToLogin.executor": "Run",
+    "JUnit.LoginFilterTest.whenLoggedInUserAccessesLogin_thenRedirectToHome.executor": "Run",
+    "JUnit.LoginFilterTest.whenLoggedInUserAccessesProtectedPage_thenChainContinues.executor": "Run",
+    "JUnit.LoginFilterTest.whenNotLoggedInUserAccessesLogin_thenChainContinues.executor": "Run",
+    "JUnit.LoginFilterTest.whenNotLoggedInUserAccessesProtectedPage_thenRedirectToLogin.executor": "Run",
+    "JUnit.PersonControllerTest.executor": "Run",
+    "JUnit.PersonControllerTest.whenRegisterWithExistingUser_thenShowWarningMessage.executor": "Run",
+    "JUnit.PersonDAOTest.executor": "Run",
+    "JUnit.PersonDAOTest.testAddPerson.executor": "Run",
+    "JUnit.PersonDAOTest.testFindPersonByNameAndPhone.executor": "Run",
+    "JUnit.PersonDAOTest.testFindPersonByNameAndPhone_NotFound.executor": "Run",
+    "JUnit.PersonDAOTest.whenAddPersonCalled_thenPersonIsPersisted.executor": "Run",
+    "JUnit.RangeValidatorTest.executor": "Run",
+    "JUnit.RangeValidatorTest.whenValueIsAboveRange_thenValidationFails.executor": "Run",
+    "JUnit.RangeValidatorTest.whenValueIsBelowRange_thenValidationFails.executor": "Run",
+    "JUnit.RangeValidatorTest.whenValueIsWithinRange_thenValidationPasses.executor": "Run",
     "Maven.ghost-net-fishing [clean].executor": "Run",
     "Maven.ghost-net-fishing [install].executor": "Run",
     "Maven.ghostNetFishing [clean].executor": "Run",
     "Maven.ghostNetFishing [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "TomEE Server.TomEE 10.1.20.executor": "Run",
-    "git-widget-placeholder": "main",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "anonymous-ghost-net-reporting",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/CC-Student/IdeaProjects/ghost-net-fishing/target/ghost-1.0-SNAPSHOT.war",
+    "last_opened_file_path": "C:/Users/CC-Student/IdeaProjects/UnitTest/HealthyCoderApp",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -90,7 +140,7 @@
     "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "advanced.settings",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -105,10 +155,22 @@
       <recent name="org.saflo.ghostNetFishing.model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\CC-Student\IdeaProjects\ghost-net-fishing" />
+      <recent name="C:\Users\CC-Student\IdeaProjects\ghost-net-fishing\src\main\webapp\WEB-INF\includes" />
+      <recent name="C:\Users\CC-Student\IdeaProjects\ghost-net-fishing\src\main\webapp\WEB-INF" />
+      <recent name="C:\Users\CC-Student\IdeaProjects\ghost-net-fishing\src\main\webapp\resources\img" />
+      <recent name="C:\Users\CC-Student\IdeaProjects\ghost-net-fishing\src\main\webapp" />
+      <recent name="C:\Users\CC-Student\IdeaProjects\ghost-net-fishing\src\main\webapp\resources" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.saflo.ghostNetFishing.model.enums" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.saflo.ghostNetFishing.controller" />
+      <recent name="org.saflo.ghostNetFishing.util" />
+      <recent name="org.saflo.ghostNetFishing.model.DAO" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -118,10 +180,90 @@
       </set>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.GhostNetControllerTest">
+    <configuration name="GhostNetControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ghost-net-fishing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GhostNetControllerTest.testAddGhostNet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ghost-net-fishing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
+      <option name="METHOD_NAME" value="testAddGhostNet" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GhostNetControllerTest.testUpdateStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ghost-net-fishing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
+      <option name="METHOD_NAME" value="testUpdateStatus" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GhostNetControllerTest.whenAddGhostNet_thenGhostNetIsAdded" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ghost-net-fishing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
+      <option name="METHOD_NAME" value="whenAddGhostNet_thenGhostNetIsAdded" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GhostNetControllerTest.whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ghost-net-fishing" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
+      <option name="METHOD_NAME" value="whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TomEE 10.1.20" type="TomeeConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="TomEE 10.1.20" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="OPEN_IN_BROWSER" value="false" />
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/ghost-net-fishing-1.0-SNAPSHOT/" />
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -286,12 +428,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GhostNetControllerTest" />
+        <item itemvalue="JUnit.GhostNetControllerTest.whenAddGhostNet_thenGhostNetIsAdded" />
+        <item itemvalue="JUnit.GhostNetControllerTest.testUpdateStatus" />
+        <item itemvalue="JUnit.GhostNetControllerTest.whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter" />
+        <item itemvalue="JUnit.GhostNetControllerTest.testAddGhostNet" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
       </set>
     </attachedChunks>
   </component>
@@ -309,7 +460,32 @@
       <workItem from="1714597933356" duration="2925000" />
       <workItem from="1714985929043" duration="1193000" />
       <workItem from="1715021327574" duration="48777000" />
-      <workItem from="1715322308658" duration="27738000" />
+      <workItem from="1715322308658" duration="28033000" />
+      <workItem from="1715424516137" duration="7111000" />
+      <workItem from="1715500725419" duration="16431000" />
+      <workItem from="1715545965880" duration="14798000" />
+      <workItem from="1715798458426" duration="12981000" />
+      <workItem from="1715892802914" duration="18058000" />
+      <workItem from="1716223941768" duration="269000" />
+      <workItem from="1716224261391" duration="6293000" />
+      <workItem from="1716357386887" duration="20448000" />
+      <workItem from="1716533255057" duration="18402000" />
+      <workItem from="1716613011002" duration="2003000" />
+      <workItem from="1717056134673" duration="973000" />
+      <workItem from="1717248936564" duration="13096000" />
+      <workItem from="1717564438320" duration="96457000" />
+      <workItem from="1718003901827" duration="43961000" />
+      <workItem from="1718176812103" duration="8328000" />
+      <workItem from="1718262577901" duration="35461000" />
+      <workItem from="1718453768893" duration="1179000" />
+      <workItem from="1718455124687" duration="37000" />
+      <workItem from="1718455187419" duration="5000" />
+      <workItem from="1718456021860" duration="190000" />
+      <workItem from="1718456263926" duration="16773000" />
+      <workItem from="1718749524442" duration="255000" />
+      <workItem from="1718783486653" duration="255000" />
+      <workItem from="1718783767029" duration="14445000" />
+      <workItem from="1718832808856" duration="55449000" />
     </task>
     <task id="LOCAL-00001" summary="Project init">
       <option name="closed" value="true" />
@@ -335,7 +511,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715076973990</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities.">
+      <option name="closed" value="true" />
+      <created>1715419539185</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715419539185</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,7 +530,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -357,5 +553,9 @@
     <MESSAGE value="Add new classes and configuration for database integration&#10;&#10;- Created DatabaseUtil class for database operations&#10;- Added new model classes: GhostNet and Person&#10;- Established enums: GhostNetStatus and PersonType for status and type management&#10;- Set up persistence.xml for Derby database connection via JPA" />
     <MESSAGE value="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities." />
     <option name="LAST_COMMIT_MESSAGE" value="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

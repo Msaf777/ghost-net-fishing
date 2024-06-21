@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Geisternetz melden</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
+</h:head>
+<h:body styleClass="container">
+    <div class=" form__card">
+        <div class="form__header">
+            <p:link outcome="#{personController.loggedIn ? 'home' : 'login'}" styleClass="form__header__back-link">
+                <i class="pi pi-arrow-left"></i> Zurück
+            </p:link>
+            <h1 class="form__title ">Ghostnetz Melden</h1>
+        </div>
+        <div class="form__content">
+            <h:form id="registrationForm">
+                <p:growl id="growl" showDetail="true" sticky="false"/>
+                <div class="form__row">
+
+                    <p:outputLabel for="@next" value="Breitengrad:" styleClass="form__label"/>
+                    <p:inputText id="latitude" label="Breitengrad" value="#{ghostNetController.latitude}" required="true"
+                                 requiredMessage="Breitengrad ist erforderlich." styleClass="form__input"
+                                 validator="rangeValidator">
+                        <f:attribute name="minValue" value="-90.0000"/>
+                        <f:attribute name="maxValue" value="90.0000"/>
+                        <p:keyFilter mask="num"/>
+                    </p:inputText>
+                </div>
+                <p:message for="latitude"/>
+
+                <div class="form__row">
+                    <p:outputLabel for="@next" value="Längengrad:" styleClass="form__label"/>
+                    <p:inputText id="longitude" label="Längengrad" value="#{ghostNetController.longitude}" required="true"
+                                 requiredMessage="Längengrad ist erforderlich." styleClass="form__input"
+                                 validator="rangeValidator">
+                        <f:attribute name="minValue" value="-180.0000"/>
+                        <f:attribute name="maxValue" value="180.0000"/>
+                        <p:keyFilter mask="num"/>
+                    </p:inputText>
+                </div>
+                <p:message for="longitude"/>
+
+                <div class="form__row">
+                    <h:outputText id="output" value="Geschätzte Größe m²#{ghostNetController.estimatedSize}"
+                                  styleClass="form__label"/>
+                    <h:inputHidden id="size" value="#{ghostNetController.estimatedSize}"/>
+                    <p:slider for="size" minValue="1" maxValue="1000" display="output" style="width: 200px"
+                              displayTemplate="Geschätzte Größe m²{value}" styleClass="form__input"/>
+                </div>
+                <p:message for="size"/>
+
+                <h:panelGroup id="myDiv" layout="block" rendered="#{personController.isPersonReporterAndLoggedIn()}">
+                <div class="form__row">
+                    <p:outputLabel for="anonym" value="anonym Geistnetze Melden:" styleClass="form__label"/>
+                    <p:selectBooleanCheckbox id="anonym" value="#{ghostNetController.stayAnonymous}"
+                                             styleClass="form__checkbox">
+                    </p:selectBooleanCheckbox>
+                </div>
+                </h:panelGroup>
+
+                <div class="form__row form__row--center">
+                    <p:commandButton value="Melden" action="#{ghostNetController.handleAddGhostNet()}"
+                                     update="growl" styleClass="form__button"/>
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+</h:body>
+
+</html>
+

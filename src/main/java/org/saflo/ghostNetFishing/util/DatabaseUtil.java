@@ -22,6 +22,7 @@ public class DatabaseUtil {
         }
     }
 
+
     public static EntityManager getEntityManager() {
         return emFactory.createEntityManager();
     }

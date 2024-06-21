@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Person Registration</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
+</h:head>
+<h:body styleClass="container">
+        <div class="form__card">
+            <div class="form__header">
+                <p:link outcome="#{personController.loggedIn ? 'home' : 'login'}" styleClass="form__header__back-link">
+                    <i class="pi pi-arrow-left"></i> Zurück
+                </p:link>
+                <h2 class="form__title">Registration Form</h2>
+            </div>
+
+
+            <div class="form__content">
+                <h:form id="registrationForm">
+                    <p:growl id="growl" showDetail="true" sticky="false"/>
+
+                    <!-- Name Label und Eingabefeld -->
+                    <div class="form__row">
+                        <p:outputLabel for="name" value="Name:" styleClass="form__label"/>
+                        <p:inputText id="name" value="#{personController.name}" required="true"
+                                     styleClass="form__input">
+                            <f:validateLength minimum="2" maximum="100"/>
+                            <f:validateRegex pattern="^[a-zA-Z\s]+$"/>
+                        </p:inputText>
+                    </div>
+                    <p:message for="name"/>
+
+                    <!-- Telefonnummer Label und Eingabefeld -->
+                    <div class="form__row">
+                        <p:outputLabel for="phone" value="Telefonnummer:" styleClass="form__label"/>
+                        <p:inputText id="phone" value="#{personController.phoneNumber}" required="true"
+                                     styleClass="form__input">
+                            <f:validateRegex pattern="^(\+49|0)[1-9][0-9]{1,14}$"
+                                             validatorMessage="Bitte geben Sie eine gültige deutsche Telefonnummer ein, die mit +49 oder 0 beginnt und 2 bis 15 Ziffern enthält."/>
+                        </p:inputText>
+                    </div>
+                    <p:message for="phone"/>
+
+                    <!-- Role Label und Auswahlmenü -->
+                    <div class="form__row">
+                        <p:outputLabel for="role" value="Ich möchte das System nutzen als:" styleClass="form__label"/>
+                        <p:selectOneMenu id="role" value="#{personController.type}"
+                                         styleClass="form__input">
+                            <f:selectItem itemLabel="Meldende Person" itemValue="REPORTER"/>
+                            <f:selectItem itemLabel="Bergende Person" itemValue="RECOVERER"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <!-- Button in einer neuen Zeile -->
+                    <div class="form__row form__row--center">
+                        <p:commandButton id="submit" value="Konto Erstellen" action="#{personController.register()}"
+                                         update="messages messageDialog growl" ajax="true" styleClass="form__button"/>
+                    </div>
+
+                    <h:messages id="messages" globalOnly="true" layout="table"/>
+                </h:form>
+
+
+                <!-- Bestätigungsdialog -->
+                <p:confirmDialog id="messageDialog" message="#{personController.message}" widgetVar="confirmDialog">
+                    <p:commandButton value="Ja" action="#{personController.redirectToLogin}"
+                                     oncomplete="PF('confirmDialog').hide();"/>
+                    <p:commandButton value="Nein" onclick="PF('confirmDialog').hide();" type="button"/>
+                </p:confirmDialog>
+
+                <h:form>
+                    <p:commandButton id="dummy" style="display:none" oncomplete="PF('confirmDialog').show();"/>
+                </h:form>
+            </div>
+        </div>
+</h:body>
+</html>

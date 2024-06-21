@@ -1,0 +1,35 @@
+@import url("util.css");
+@import url("home.css");
+@import url("ghostNet.css");
+
+
+/* Globale Stile */
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --text-muted: #555;
+    --border-radius: 4px;
+    --padding: 2rem;
+    --max-width: 800px;
+    --font-size-base: 16px;
+    --font-size-large: 1.5rem;
+    --font-size-xlarge: 2.5rem;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    font-size: var(--font-size-base);
+}
+
+
+

@@ -1,0 +1,97 @@
+/*Generally*/
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+}
+
+
+/* Form Styles */
+
+.form__card {
+    width: 31.25rem;
+    padding: var(--padding);
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form__header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.form__header__back-link {
+    align-self: flex-start;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.form__header__link:hover {
+    text-decoration: underline;
+}
+
+.form__title {
+    font-size: var(--font-size-xlarge);
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.form__content {
+    width: 100%;
+}
+
+.form__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.form__label {
+    flex: 1;
+    text-align: left;
+    margin-right: 1rem;
+}
+
+.form__input {
+    flex: 2;
+}
+
+.form__checkbox {
+    flex: 1;
+}
+
+.form__button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    width: 50%;
+    text-align: center;
+}
+
+.form__row--center {
+    justify-content: center;
+}
+
+.form__link {
+    flex: 1;
+    text-align: center;
+    margin-top: 1rem;
+    display: block;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+
+.form__message {
+    width: 100%;
+}
