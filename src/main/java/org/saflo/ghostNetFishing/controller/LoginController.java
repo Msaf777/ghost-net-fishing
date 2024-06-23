@@ -13,8 +13,8 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 /**
- * Controller für das Login-Management in der GhostNetFishing-Anwendung.
- * Diese Klasse ist verantwortlich für die Authentifizierung von Benutzern.
+ * Controller for login management in the GhostNetFishing application.
+ * This class is responsible for user authentication.
  */
 @Named
 @ViewScoped
@@ -59,8 +59,8 @@ public class LoginController implements Serializable {
     }
 
     /**
-     * Authentifiziert den Benutzer und leitet zur entsprechenden Seite weiter.
-     * @return die Zielseite nach der Authentifizierung.
+     * Authenticates the user and redirects to the appropriate page.
+     * @return the target page after authentication.
      */
     public String login() {
         if (!stayAnonymous) {
@@ -81,9 +81,8 @@ public class LoginController implements Serializable {
     }
 
     /**
-     * Loggt den Benutzer aus und leitet zur Login-Seite weiter.
-     *
-     * @return die Zielseite nach dem Logout.
+     * Logs the user out and redirects to the login page.
+     * @return the target page after logout.
      */
     public String logout() {
         SessionUtil.logout();

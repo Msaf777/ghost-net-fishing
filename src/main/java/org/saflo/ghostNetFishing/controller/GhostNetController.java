@@ -28,8 +28,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * Controller für die Verwaltung von GhostNets in der GhostNetFishing-Anwendung.
- * Diese Klasse ist verantwortlich für das Hinzufügen, Aktualisieren und Filtern von GhostNets sowie die Verwaltung der Kartenanzeige.
+ * Controller for managing GhostNets in the GhostNetFishing application.
+ * This class is responsible for adding, updating, and filtering GhostNets, as well as managing the map display.
  */
 @Named
 @ViewScoped
@@ -120,7 +120,7 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Füllt die Karte mit GhostNets und setzt Marker basierend auf ihrem Status.
+     * Populates the map with GhostNets and sets markers based on their status.
      */
     public void populateMapWithGhostNets() {
         simpleModel = new DefaultMapModel<>();
@@ -134,7 +134,7 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * @return eine Liste aller GhostNets.
+     * @return a list of all GhostNets.
      */
     public List<GhostNet> getGhostNets() {
         LOGGER.info("Fetching all ghost nets");
@@ -142,14 +142,14 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * @return true, wenn das Menü-Button deaktiviert werden soll, ansonsten false.
+     * @return true if the menu button should be disabled, otherwise false.
      */
     public boolean isDisableMenuButton() {
         return this.disableSplitButton;
     }
 
     /**
-     * @return eine Liste der gefilterten GhostNets basierend auf dem aktuellen Filter.
+     * @return a list of filtered GhostNets based on the current filter.
      */
     public List<GhostNet> getFilteredGhostNets() {
         LOGGER.info("Fetching filtered ghost nets");
@@ -166,7 +166,7 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Fügt ein neues GhostNet anonym hinzu.
+     * Adds a new GhostNet anonymously.
      */
     public void addGhostNetAnonymously() {
         GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize);
@@ -178,7 +178,7 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Fügt ein neues GhostNet mit den Informationen des eingeloggten Benutzers hinzu.
+     * Adds a new GhostNet with the logged-in user's information.
      */
     public void addGhostNet() {
         GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize, SessionUtil.getLoggedInPerson());
@@ -189,7 +189,7 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Handhabt das Hinzufügen eines neuen GhostNets basierend auf dem Login-Status und der Anonymitätspräferenz des Benutzers.
+     * Handles adding a new GhostNet based on the user's login status and anonymity preference.
      */
     public void handleAddGhostNet() {
         if (!SessionUtil.isLoggedIn()) {
@@ -208,9 +208,9 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Aktualisiert den Status eines GhostNets basierend auf der gegebenen ID und dem neuen Status.
-     * @param ghostNetId die ID des GhostNets.
-     * @param newStatus der neue Status des GhostNets.
+     * Updates the status of a GhostNet based on the given ID and new status.
+     * @param ghostNetId the ID of the GhostNet.
+     * @param newStatus the new status of the GhostNet.
      */
     public void updateStatus(Long ghostNetId, String newStatus) {
         GhostNet updatedGhostNet = this.ghostNetDAO.findGhostNet(ghostNetId);
@@ -238,9 +238,9 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "RECOVERY_PENDING" zu setzen.
-     * @param ghostNet das GhostNet.
-     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     * Checks if the current user is authorized to set the status of a GhostNet to "RECOVERY_PENDING".
+     * @param ghostNet the GhostNet.
+     * @return true if the user is authorized, otherwise false.
      */
     public boolean isReportRecoveryPendingAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() == GhostNetStatus.REPORTED &&
@@ -248,9 +248,9 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "RECOVERED" zu setzen.
-     * @param ghostNet das GhostNet.
-     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     * Checks if the current user is authorized to set the status of a GhostNet to "RECOVERED".
+     * @param ghostNet the GhostNet.
+     * @return true if the user is authorized, otherwise false.
      */
     public boolean isReportRecoveredAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() == GhostNetStatus.RECOVERY_PENDING &&
@@ -258,25 +258,25 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "LOST" zu setzen.
-     * @param ghostNet das GhostNet.
-     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     * Checks if the current user is authorized to set the status of a GhostNet to "LOST".
+     * @param ghostNet the GhostNet.
+     * @return true if the user is authorized, otherwise false.
      */
     public boolean isReportLostAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() != GhostNetStatus.LOST && ghostNet.getStatus() != GhostNetStatus.RECOVERED;
     }
 
     /**
-     * Gibt den Status eines GhostNets auf Deutsch zurück.
-     * @param status der Status des GhostNets.
-     * @return der Status in Deutsch.
+     * Returns the status of a GhostNet in German.
+     * @param status the status of the GhostNet.
+     * @return the status in German.
      */
     public String getStatusInGerman(GhostNetStatus status) {
         return GhostNetStatus.fromStatus(status).getGermanStatus();
     }
 
     /**
-     * Überprüft den aktuellen Filter und aktualisiert den Status des Split-Buttons basierend auf dem Filterwert.
+     * Checks the current filter and updates the status of the split button based on the filter value.
      */
     public void toggleSplitButton() {
         if (filterBy.getFilterValue() != null) {

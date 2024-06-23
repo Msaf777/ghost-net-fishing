@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 
 /**
- * Hilfsklasse für den Zugriff auf die Datenbank.
- * Verwaltet den EntityManagerFactory und bietet eine statische Methode zum Abrufen eines EntityManagers.
+ * Utility class for database access.
+ * Manages the EntityManagerFactory and provides a static method for retrieving an EntityManager.
  */
 public class DatabaseUtil {
     private static final Logger logger = Logger.getLogger(DatabaseUtil.class.getName());
@@ -30,8 +30,8 @@ public class DatabaseUtil {
 
 
     /**
-     * Gibt einen EntityManager zurück.
-     * @return der EntityManager.
+     * Returns an EntityManager.
+     * @return the EntityManager.
      */
     public static EntityManager getEntityManager() {
         return emFactory.createEntityManager();

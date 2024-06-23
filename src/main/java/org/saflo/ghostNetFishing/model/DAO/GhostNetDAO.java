@@ -13,12 +13,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Data Access Object (DAO) for managing ghostNets in the database.
+ */
 @Named
 @RequestScoped
 public class GhostNetDAO implements Serializable {
     private static final Logger logger = Logger.getLogger(GhostNetDAO.class.getName());
 
-
+    /**
+     * Adds a new GhostNet to the database.
+     * @param ghostNet the GhostNet entity to be added.
+     */
     public void addGhostNet(GhostNet ghostNet) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -40,6 +46,11 @@ public class GhostNetDAO implements Serializable {
         }
     }
 
+    /**
+     * Finds a GhostNet by its ID.
+     * @param id the ID of the GhostNet.
+     * @return the found GhostNet entity, or null if not found.
+     */
     public GhostNet findGhostNet(Long id) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -60,7 +71,10 @@ public class GhostNetDAO implements Serializable {
         }
     }
 
-
+    /**
+     * Updates an existing GhostNet in the database.
+     * @param ghostNet the GhostNet entity to be updated.
+     */
     public void updateGhostNet(GhostNet ghostNet) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -83,6 +97,10 @@ public class GhostNetDAO implements Serializable {
 
     }
 
+    /**
+     * Retrieves all GhostNets from the database.
+     * @return a list of all GhostNet entities.
+     */
     public List<GhostNet> getAllGhostNets() {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -103,6 +121,11 @@ public class GhostNetDAO implements Serializable {
         }
     }
 
+    /**
+     * Retrieves filtered GhostNets from the database based on the provided filter criteria.
+     * @param filterBy the filter criteria.
+     * @return a list of filtered GhostNet entities.
+     */
     public List<GhostNet> getFilteredGhostNets(FilterMeta filterBy) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -124,6 +147,11 @@ public class GhostNetDAO implements Serializable {
             logger.info("EntityManager closed after attempting to find filtered ghost-nets ");
         }
     }
+
+    /**
+     * Retrieves available GhostNets from the database that have a status of REPORTED or RECOVERY_PENDING.
+     * @return a list of available GhostNet entities.
+     */
     public List<GhostNet> getAvailableGhostNets() {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {

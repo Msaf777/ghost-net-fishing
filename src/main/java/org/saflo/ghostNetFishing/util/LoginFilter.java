@@ -7,18 +7,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Filter zur Verwaltung von Login-Anforderungen und zum Schutz von Seiten.
+ * Filter for managing login requirements and protecting pages.
  */
 public class LoginFilter implements Filter {
 
 
     /**
-     * Filtert Anfragen und leitet Benutzer basierend auf ihrem Login-Status weiter.
-     * @param request das ServletRequest-Objekt.
-     * @param response das ServletResponse-Objekt.
-     * @param chain das FilterChain-Objekt.
-     * @throws IOException wenn ein IO-Fehler auftritt.
-     * @throws ServletException wenn ein Servlet-Fehler auftritt.
+     * Filters requests and redirects users based on their login status.
+     * @param request the ServletRequest object.
+     * @param response the ServletResponse object.
+     * @param chain the FilterChain object.
+     * @throws IOException if an I/O error occurs.
+     * @throws ServletException if a servlet error occurs.
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;

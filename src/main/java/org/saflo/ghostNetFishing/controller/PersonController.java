@@ -15,8 +15,8 @@ import org.saflo.ghostNetFishing.util.SessionUtil;
 import java.io.Serializable;
 
 /**
- * Controller für die Verwaltung von Personen in der GhostNetFishing-Anwendung.
- * Diese Klasse ist verantwortlich für die Registrierung und Verwaltung von Benutzern.
+ * Controller for managing persons in the GhostNetFishing application.
+ * This class is responsible for user registration and management.
  */
 @Named
 @ViewScoped
@@ -44,17 +44,17 @@ public class PersonController implements Serializable {
     public String getMessage() { return message; }
 
     /**
-     * Setzt die Nachricht für den Benutzer.
-     * @param message die Nachricht für den Benutzer.
+     * Sets the message for the user.
+     * @param message the message for the user.
      */
     public void setMessage(String message){this.message = message; }
 
     /**
-     * Registriert eine neue Person und speichert diese in der Datenbank.
-     * Verwendet den Flash-Scoped um die PrimeFaces-Nachricht global zu speichern,
-     * damit die Nachricht dem Benutzer trotz der automatischen Weiterleitung zur Startseite
-     * nach erfolgreicher Registrierung angezeigt wird.
-     * @return die Zielseite nach der Registrierung.
+     * Registers a new person and saves them in the database.
+     * Uses Flash-Scoped to store the PrimeFaces message globally,
+     * so that the message is displayed to the user after successful registration
+     * despite automatic redirection to the home page.
+     * @return the target page after registration.
      */
     public String register() {
         if (userExists()) {
@@ -76,16 +76,16 @@ public class PersonController implements Serializable {
 
 
     /**
-     * Leitet zur Login-Seite weiter.
-     * @return die Zielseite für den Login.
+     * Redirects to the login page.
+     * @return the target page for login.
      */
     public String redirectToLogin() {
         return "login?faces-redirect=true";
     }
 
     /**
-     * Überprüft, ob ein Benutzer mit dem angegebenen Namen und Telefonnummer bereits existiert.
-     * @return true, wenn der Benutzer existiert, ansonsten false.
+     * Checks if a user with the given name and phone number already exists.
+     * @return true if the user exists, otherwise false.
      */
     private boolean userExists() {
         Person existingUser = personDAO.findPersonByNameAndPhone(name.toLowerCase(), phoneNumber);
@@ -93,8 +93,8 @@ public class PersonController implements Serializable {
     }
 
     /**
-     * Vermittelt den Aufruf der statischen Methode isLoggedIn() zur Nutzung in JSF-EL.
-     *  @return true, wenn ein Benutzer eingeloggt ist, ansonsten false.
+     * Mediates the call to the static method isLoggedIn() for use in JSF-EL.
+     * @return true if a user is logged in, otherwise false.
      */
     public boolean isLoggedIn() {
         return SessionUtil.isLoggedIn();
@@ -102,30 +102,28 @@ public class PersonController implements Serializable {
 
 
     /**
-     * @return true, wenn der eingeloggte Benutzer ein Recoverer ist, ansonsten false.
+     * @return true if the logged-in user is a Recoverer, otherwise false.
      */
     public boolean isLoggedInPersonRecoverer() {
         return SessionUtil.getLoggedInPerson().getType().equals(PersonType.RECOVERER);
     }
 
     /**
-     * @return true, wenn der eingeloggte Benutzer ein Reporter ist, ansonsten false.
+     * @return true if the logged-in user is a Reporter, otherwise false.
      */
     public boolean isLoggedInPersonReporter() {
         return SessionUtil.getLoggedInPerson().getType().equals(PersonType.REPORTER);
     }
 
     /**
-     * @return true, wenn der Benutzer ein Reporter ist und eingeloggt ist, ansonsten false.
+     * @return true if the user is a Reporter and is logged in, otherwise false.
      */
     public boolean isPersonReporterAndLoggedIn() {
         return (SessionUtil.getLoggedInPerson() != null && isLoggedInPersonReporter());
     }
 
-
-
     /**
-     * @return der Name des eingeloggten Benutzers mit einem Großbuchstaben am Anfang.
+     * @return the name of the logged-in user with the first letter capitalized.
      */
     public String getLoggedInPersonName() {
         String firstLetter = SessionUtil.getLoggedInPerson().getName().substring(0,1).toUpperCase();
