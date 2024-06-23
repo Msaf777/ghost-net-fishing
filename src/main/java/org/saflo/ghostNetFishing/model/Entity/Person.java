@@ -9,19 +9,19 @@ import org.saflo.ghostNetFishing.model.enums.PersonType;
 public class Person {
     @Id
     @GeneratedValue
+    @Column(name="person_id")
     private Long id;
 
-    @Column(length = 255)
+    @Column()
     private String name;
 
-    @Column(length = 255)
+    @Column()
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)
     private PersonType type;
 
-    // Konstruktoren
     public Person() {
     }
 
@@ -34,10 +34,6 @@ public class Person {
     // Getter und Setter
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
