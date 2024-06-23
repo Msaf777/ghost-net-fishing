@@ -6,8 +6,20 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+/**
+ * Filter zur Verwaltung von Login-Anforderungen und zum Schutz von Seiten.
+ */
 public class LoginFilter implements Filter {
 
+
+    /**
+     * Filtert Anfragen und leitet Benutzer basierend auf ihrem Login-Status weiter.
+     * @param request das ServletRequest-Objekt.
+     * @param response das ServletResponse-Objekt.
+     * @param chain das FilterChain-Objekt.
+     * @throws IOException wenn ein IO-Fehler auftritt.
+     * @throws ServletException wenn ein Servlet-Fehler auftritt.
+     */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
@@ -23,7 +35,7 @@ public class LoginFilter implements Filter {
 
         // Überprüfe, ob der Benutzer eingeloggt ist
         if(loggedIn && loginRequest) {
-            // Benutzer ist eingeloggt, leite zu einer anderen Seite weiter (z.B. Startseite)
+            // Benutzer ist eingeloggt, und will zur Login-Seite, leite zu Startseite
             res.sendRedirect(req.getContextPath() + "/home.xhtml");
         } else if (!loggedIn && (!loginRequest && !addPersonRequest && !addGhostNetReq)) {
             // Benutzer ist nicht eingeloggt und will sich nicht registrieren oder keine neue GhostNetz melden, leite zur Login-Seite weiter

@@ -27,6 +27,10 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+/**
+ * Controller für die Verwaltung von GhostNets in der GhostNetFishing-Anwendung.
+ * Diese Klasse ist verantwortlich für das Hinzufügen, Aktualisieren und Filtern von GhostNets sowie die Verwaltung der Kartenanzeige.
+ */
 @Named
 @ViewScoped
 public class GhostNetController implements Serializable {
@@ -103,6 +107,9 @@ public class GhostNetController implements Serializable {
     public FilterMeta getFilterBy() {
         return filterBy;
     }
+    public void setFilterBy(FilterMeta filterBy) {
+        this.filterBy = filterBy;
+    }
 
     public List<String> getNetStatuses() {
         return netStatuses;
@@ -112,6 +119,9 @@ public class GhostNetController implements Serializable {
         return simpleModel;
     }
 
+    /**
+     * Füllt die Karte mit GhostNets und setzt Marker basierend auf ihrem Status.
+     */
     public void populateMapWithGhostNets() {
         simpleModel = new DefaultMapModel<>();
         List<GhostNet> ghostNets = ghostNetDAO.getAvailableGhostNets();
@@ -123,15 +133,24 @@ public class GhostNetController implements Serializable {
         }
     }
 
+    /**
+     * @return eine Liste aller GhostNets.
+     */
     public List<GhostNet> getGhostNets() {
         LOGGER.info("Fetching all ghost nets");
         return ghostNetDAO.getAllGhostNets();
     }
 
+    /**
+     * @return true, wenn das Menü-Button deaktiviert werden soll, ansonsten false.
+     */
     public boolean isDisableMenuButton() {
         return this.disableSplitButton;
     }
 
+    /**
+     * @return eine Liste der gefilterten GhostNets basierend auf dem aktuellen Filter.
+     */
     public List<GhostNet> getFilteredGhostNets() {
         LOGGER.info("Fetching filtered ghost nets");
         LOGGER.info("Status: " + filterBy.getFilterValue());
@@ -146,6 +165,9 @@ public class GhostNetController implements Serializable {
         this.filteredGhostNets = filteredGhostNets;
     }
 
+    /**
+     * Fügt ein neues GhostNet anonym hinzu.
+     */
     public void addGhostNetAnonymously() {
         GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize);
         LOGGER.info("Adding a new ghost net");
@@ -153,9 +175,11 @@ public class GhostNetController implements Serializable {
         LOGGER.info("Ghost net added and reset");
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", ""));
-
     }
 
+    /**
+     * Fügt ein neues GhostNet mit den Informationen des eingeloggten Benutzers hinzu.
+     */
     public void addGhostNet() {
         GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize, SessionUtil.getLoggedInPerson());
         LOGGER.info("Adding a new ghost net");
@@ -164,6 +188,9 @@ public class GhostNetController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", ""));
     }
 
+    /**
+     * Handhabt das Hinzufügen eines neuen GhostNets basierend auf dem Login-Status und der Anonymitätspräferenz des Benutzers.
+     */
     public void handleAddGhostNet() {
         if (!SessionUtil.isLoggedIn()) {
             addGhostNetAnonymously();
@@ -180,6 +207,11 @@ public class GhostNetController implements Serializable {
         }
     }
 
+    /**
+     * Aktualisiert den Status eines GhostNets basierend auf der gegebenen ID und dem neuen Status.
+     * @param ghostNetId die ID des GhostNets.
+     * @param newStatus der neue Status des GhostNets.
+     */
     public void updateStatus(Long ghostNetId, String newStatus) {
         GhostNet updatedGhostNet = this.ghostNetDAO.findGhostNet(ghostNetId);
         if (updatedGhostNet != null) {
@@ -205,37 +237,48 @@ public class GhostNetController implements Serializable {
         }
     }
 
+    /**
+     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "RECOVERY_PENDING" zu setzen.
+     * @param ghostNet das GhostNet.
+     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     */
     public boolean isReportRecoveryPendingAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() == GhostNetStatus.REPORTED &&
                 SessionUtil.getLoggedInPerson().getType() == PersonType.RECOVERER;
     }
 
+    /**
+     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "RECOVERED" zu setzen.
+     * @param ghostNet das GhostNet.
+     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     */
     public boolean isReportRecoveredAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() == GhostNetStatus.RECOVERY_PENDING &&
                 SessionUtil.getLoggedInPerson().getType() == PersonType.RECOVERER;
     }
 
+    /**
+     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "LOST" zu setzen.
+     * @param ghostNet das GhostNet.
+     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     */
     public boolean isReportLostAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() != GhostNetStatus.LOST && ghostNet.getStatus() != GhostNetStatus.RECOVERED;
     }
 
+    /**
+     * Gibt den Status eines GhostNets auf Deutsch zurück.
+     * @param status der Status des GhostNets.
+     * @return der Status in Deutsch.
+     */
     public String getStatusInGerman(GhostNetStatus status) {
-        switch (status) {
-            case REPORTED:
-                return "Gemeldet";
-            case RECOVERY_PENDING:
-                return "Bergung ausstehend";
-            case RECOVERED:
-                return "Geborgen";
-            case LOST:
-                return "Verschollen";
-            default:
-                return "Unbekannt";
-        }
-
+        return GhostNetStatus.fromStatus(status).getGermanStatus();
     }
 
-    public void checkFilter() {
+    /**
+     * Überprüft den aktuellen Filter und aktualisiert den Status des Split-Buttons basierend auf dem Filterwert.
+     */
+    public void toggleSplitButton() {
         if (filterBy.getFilterValue() != null) {
             String filterValue = filterBy.getFilterValue().toString();
             disableSplitButton = filterValue.equals("LOST") || filterValue.equals("RECOVERED");

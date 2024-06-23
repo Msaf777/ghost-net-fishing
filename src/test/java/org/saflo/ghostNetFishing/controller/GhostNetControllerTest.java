@@ -3,6 +3,7 @@ package org.saflo.ghostNetFishing.controller;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
+import org.primefaces.model.FilterMeta;
 import jakarta.faces.context.Flash;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +24,7 @@ import org.saflo.ghostNetFishing.util.SessionUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -58,8 +58,8 @@ public class GhostNetControllerTest {
     void setUp() {
         facesContextMockedStatic = Mockito.mockStatic(FacesContext.class);
         facesContextMockedStatic.when(FacesContext::getCurrentInstance).thenReturn(facesContext);
-     lenient().when(facesContext.getExternalContext()).thenReturn(externalContext);
-     lenient().when(externalContext.getFlash()).thenReturn(flash);
+        lenient().when(facesContext.getExternalContext()).thenReturn(externalContext);
+        lenient().when(externalContext.getFlash()).thenReturn(flash);
         sessionUtilMockedStatic = Mockito.mockStatic(SessionUtil.class);
     }
 
@@ -72,7 +72,7 @@ public class GhostNetControllerTest {
     @Test
     void whenPopulateMapWithGhostNets_thenMarkersAreAddedToMapModel() {
         List<GhostNet> ghostNets = new ArrayList<>();
-        ghostNets.add(new GhostNet( 10.0, 10.0, 100));
+        ghostNets.add(new GhostNet(10.0, 10.0, 100));
         ghostNets.get(0).setStatus(GhostNetStatus.REPORTED);
         ghostNets.add(new GhostNet(20.0, 20.0, 200));
         ghostNets.get(1).setStatus(GhostNetStatus.LOST);
@@ -148,7 +148,7 @@ public class GhostNetControllerTest {
     }
 
     @Test
-    void testUpdateStatus() {
+    void wenn_updateStatusAufgerufenMitRecoveredDann_setztStatusAufRecoveredUndSetztRecoveredBy() {
         GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
         sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(loggedInPerson);
 
@@ -159,5 +159,154 @@ public class GhostNetControllerTest {
         assertEquals(GhostNetStatus.RECOVERED, ghostNet.getStatus());
         assertEquals(loggedInPerson, ghostNet.getRecoveredBy());
         verify(ghostNetDAO).updateGhostNet(ghostNet);
+    }
+
+    @Test
+    void wenn_StatusIstReportedUndPersonIstRecovererDann_ReportRecoveryPendingAllowedIstTrue() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.REPORTED);
+        when(loggedInPerson.getType()).thenReturn(PersonType.RECOVERER);
+        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(loggedInPerson);
+
+        assertTrue(ghostNetController.isReportRecoveryPendingAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.RECOVERY_PENDING);
+
+        assertFalse(ghostNetController.isReportRecoveryPendingAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstReportedAberPersonIstNichtRecovererDann_ReportRecoveryPendingAllowedIstFalse() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.REPORTED);
+        when(loggedInPerson.getType()).thenReturn(PersonType.REPORTER);
+        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(loggedInPerson);
+
+        assertFalse(ghostNetController.isReportRecoveryPendingAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstRecoveryPendingUndPersonIstRecovererDann_ReportRecoveredAllowedIstTrue() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.RECOVERY_PENDING);
+        when(loggedInPerson.getType()).thenReturn(PersonType.RECOVERER);
+        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(loggedInPerson);
+
+        assertTrue(ghostNetController.isReportRecoveredAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.REPORTED);
+
+        assertFalse(ghostNetController.isReportRecoveredAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstRecoveryPendingAberPersonIstNichtRecovererDann_ReportRecoveredAllowedIstFalse() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.RECOVERY_PENDING);
+        when(loggedInPerson.getType()).thenReturn(PersonType.REPORTER);
+        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(loggedInPerson);
+
+        assertFalse(ghostNetController.isReportRecoveredAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstNichtLostOderRecoveredDann_ReportLostAllowedIstTrue() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.REPORTED);
+
+        assertTrue(ghostNetController.isReportLostAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstLostDann_ReportLostAllowedIstFalse() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.LOST);
+
+        assertFalse(ghostNetController.isReportLostAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstRecoveredDann_ReportLostAllowedIstFalse() {
+        GhostNet ghostNet = new GhostNet(10.0, 20.0, 100);
+        ghostNet.setStatus(GhostNetStatus.RECOVERED);
+
+        assertFalse(ghostNetController.isReportLostAllowed(ghostNet));
+    }
+
+    @Test
+    void wenn_StatusIstReportedDann_getStatusInGermanIstGemeldet() {
+        assertEquals("Gemeldet", ghostNetController.getStatusInGerman(GhostNetStatus.REPORTED));
+    }
+
+    @Test
+    void wenn_StatusIstRecoveryPendingDann_getStatusInGermanIstBergungAusstehend() {
+        assertEquals("Bergung ausstehend", ghostNetController.getStatusInGerman(GhostNetStatus.RECOVERY_PENDING));
+    }
+
+    @Test
+    void wenn_StatusIstRecoveredDann_getStatusInGermanIstGeborgen() {
+        assertEquals("Geborgen", ghostNetController.getStatusInGerman(GhostNetStatus.RECOVERED));
+    }
+
+    @Test
+    void wenn_StatusIstLostDann_getStatusInGermanIstVerschollen() {
+        assertEquals("Verschollen", ghostNetController.getStatusInGerman(GhostNetStatus.LOST));
+    }
+
+    @Test
+    void wenn_StatusIstUnbekanntDann_getStatusInGermanIstUnbekannt() {
+        assertEquals("Unbekannt", ghostNetController.getStatusInGerman(null));
+    }
+
+    @Test
+    void wenn_FilterValueIstLostDann_toggleSplitButtonDeaktiviertSplitButton() {
+        FilterMeta filterBy = mock(FilterMeta.class);
+        ghostNetController.setFilterBy(filterBy);
+        when(filterBy.getFilterValue()).thenReturn("LOST");
+
+        ghostNetController.toggleSplitButton();
+
+        assertTrue(ghostNetController.isDisableMenuButton());
+    }
+
+    @Test
+    void wenn_FilterValueIstRecoveredDann_toggleSplitButtonDeaktiviertSplitButton() {
+        FilterMeta filterBy = mock(FilterMeta.class);
+        ghostNetController.setFilterBy(filterBy);
+        when(filterBy.getFilterValue()).thenReturn("RECOVERED");
+
+        ghostNetController.toggleSplitButton();
+
+        assertTrue(ghostNetController.isDisableMenuButton());
+    }
+
+    @Test
+    void wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton() {
+        FilterMeta filterBy = mock(FilterMeta.class);
+        ghostNetController.setFilterBy(filterBy);
+        when(filterBy.getFilterValue()).thenReturn("REPORTED");
+
+        ghostNetController.toggleSplitButton();
+
+        assertFalse(ghostNetController.isDisableMenuButton());
+    }
+
+    @Test
+    void wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton() {
+        FilterMeta filterBy = mock(FilterMeta.class);
+        ghostNetController.setFilterBy(filterBy);
+        when(filterBy.getFilterValue()).thenReturn(null);
+
+        ghostNetController.toggleSplitButton();
+
+        assertFalse(ghostNetController.isDisableMenuButton());
     }
 }

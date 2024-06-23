@@ -9,11 +9,18 @@ import org.saflo.ghostNetFishing.util.DatabaseUtil;
 
 import java.util.logging.Logger;
 
+/**
+ * Data Access Object (DAO) für die Verwaltung von Personen in der Datenbank.
+ */
 @Named
 @RequestScoped
 public class PersonDAO {
     private static final Logger logger = Logger.getLogger(PersonDAO.class.getName());
 
+    /**
+     * Fügt eine neue Person zur Datenbank hinzu.
+     * @param person die hinzuzufügende Person.
+     */
     public void addPerson(Person person) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -37,7 +44,12 @@ public class PersonDAO {
     }
 
 
-
+    /**
+     * Findet eine Person anhand von Name und Telefonnummer.
+     * @param name der Name der Person.
+     * @param phone die Telefonnummer der Person.
+     * @return die gefundene Person oder null, wenn keine Person gefunden wurde.
+     */
     public Person findPersonByNameAndPhone(String name, String phone){
         TypedQuery<Person> query = DatabaseUtil.getEntityManager()
                 .createQuery("SELECT p FROM Person p WHERE p.name = :name AND p.phoneNumber = :phone", Person.class);

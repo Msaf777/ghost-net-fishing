@@ -8,8 +8,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+/**
+ * Hilfsklasse für den Zugriff auf die Datenbank.
+ * Verwaltet den EntityManagerFactory und bietet eine statische Methode zum Abrufen eines EntityManagers.
+ */
 public class DatabaseUtil {
     private static final Logger logger = Logger.getLogger(DatabaseUtil.class.getName());
+
+    // Inject the EntityManager to interact with the persistence context
     private static final EntityManagerFactory emFactory;
 
     static {
@@ -23,6 +29,10 @@ public class DatabaseUtil {
     }
 
 
+    /**
+     * Gibt einen EntityManager zurück.
+     * @return der EntityManager.
+     */
     public static EntityManager getEntityManager() {
         return emFactory.createEntityManager();
     }

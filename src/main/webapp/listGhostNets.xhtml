@@ -52,7 +52,7 @@
                             <f:selectItems value="#{ghostNetController.netStatuses}" var="status"
                                            itemLabel="${ghostNetController.getStatusInGerman(status)}"
                                            noSelectionOption="true"/>
-                            <p:ajax event="change" listener="#{ghostNetController.checkFilter}"
+                            <p:ajax event="change" listener="#{ghostNetController.toggleSplitButton}"
                                     update=":mainForm:netTable"/>
                         </p:selectOneMenu>
                     </f:facet>

@@ -9,18 +9,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities.">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/home.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+    <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="feat: Implement GhostNet DAO, Controllers, JSF pages, Utils, CSS, and Tests&#10;&#10;- Added GhostNet DAO class&#10;- Created controllers for GhostNet, Person, and Login&#10;- Developed JSF pages: Login, Home, addPerson, addGhostNet&#10;- Implemented utility classes: Session management, RangeValidator for longitude and latitude inputs, Login filter to protect resources from unauthorized access&#10;- Styled the entire project with CSS&#10;- Added test classes for DAOs, controllers, and utility classes using JUnit and Mockito">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/GhostNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/GhostNet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/GhostNetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/GhostNetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/PersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/PersonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/enums/GhostNetStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/enums/GhostNetStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/DatabaseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/DatabaseUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.xhtml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/LoginFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/LoginFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/SessionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/SessionUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/listGhostNets.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/listGhostNets.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/GhostNetControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/GhostNetControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +89,11 @@
     "JUnit.GhostNetControllerTest.testAddGhostNet.executor": "Run",
     "JUnit.GhostNetControllerTest.testPopulateMapWithGhostNets.executor": "Run",
     "JUnit.GhostNetControllerTest.testUpdateStatus.executor": "Run",
+    "JUnit.GhostNetControllerTest.wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton.executor": "Run",
+    "JUnit.GhostNetControllerTest.wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton.executor": "Run",
+    "JUnit.GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse.executor": "Run",
+    "JUnit.GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse.executor": "Run",
+    "JUnit.GhostNetControllerTest.wenn_StatusIstReportedUndPersonIstRecovererDann_ReportRecoveryPendingAllowedIstTrue.executor": "Run",
     "JUnit.GhostNetControllerTest.whenAddGhostNet_thenGhostNetIsAdded.executor": "Run",
     "JUnit.GhostNetControllerTest.whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter.executor": "Run",
     "JUnit.GhostNetDAOTest.executor": "Run",
@@ -191,12 +196,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
       <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
+      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.testAddGhostNet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GhostNetControllerTest.wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
@@ -206,13 +212,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
       <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="testAddGhostNet" />
+      <option name="METHOD_NAME" value="wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.testUpdateStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GhostNetControllerTest.wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
@@ -222,13 +228,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
       <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="testUpdateStatus" />
+      <option name="METHOD_NAME" value="wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.whenAddGhostNet_thenGhostNetIsAdded" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
@@ -238,13 +244,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
       <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="whenAddGhostNet_thenGhostNetIsAdded" />
+      <option name="METHOD_NAME" value="wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
@@ -254,7 +260,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
       <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter" />
+      <option name="METHOD_NAME" value="wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -428,13 +434,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" />
+      <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" />
+      <item itemvalue="JUnit.GhostNetControllerTest" />
+      <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" />
+      <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" />
+      <item itemvalue="TomEE Server.TomEE 10.1.20" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.GhostNetControllerTest" />
-        <item itemvalue="JUnit.GhostNetControllerTest.whenAddGhostNet_thenGhostNetIsAdded" />
-        <item itemvalue="JUnit.GhostNetControllerTest.testUpdateStatus" />
-        <item itemvalue="JUnit.GhostNetControllerTest.whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter" />
-        <item itemvalue="JUnit.GhostNetControllerTest.testAddGhostNet" />
+        <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" />
+        <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" />
+        <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" />
+        <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" />
       </list>
     </recent_temporary>
   </component>
@@ -485,7 +499,7 @@
       <workItem from="1718749524442" duration="255000" />
       <workItem from="1718783486653" duration="255000" />
       <workItem from="1718783767029" duration="14445000" />
-      <workItem from="1718832808856" duration="55449000" />
+      <workItem from="1718832808856" duration="68040000" />
     </task>
     <task id="LOCAL-00001" summary="Project init">
       <option name="closed" value="true" />
@@ -519,7 +533,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715419539185</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: Implement GhostNet DAO, Controllers, JSF pages, Utils, CSS, and Tests&#10;&#10;- Added GhostNet DAO class&#10;- Created controllers for GhostNet, Person, and Login&#10;- Developed JSF pages: Login, Home, addPerson, addGhostNet&#10;- Implemented utility classes: Session management, RangeValidator for longitude and latitude inputs, Login filter to protect resources from unauthorized access&#10;- Styled the entire project with CSS&#10;- Added test classes for DAOs, controllers, and utility classes using JUnit and Mockito">
+      <option name="closed" value="true" />
+      <created>1718994104800</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1718994104800</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -552,7 +574,8 @@
     <MESSAGE value="Project init" />
     <MESSAGE value="Add new classes and configuration for database integration&#10;&#10;- Created DatabaseUtil class for database operations&#10;- Added new model classes: GhostNet and Person&#10;- Established enums: GhostNetStatus and PersonType for status and type management&#10;- Set up persistence.xml for Derby database connection via JPA" />
     <MESSAGE value="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities." />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed CRUD operations for Ghost-net including create, show, update, and delete functionalities." />
+    <MESSAGE value="feat: Implement GhostNet DAO, Controllers, JSF pages, Utils, CSS, and Tests&#10;&#10;- Added GhostNet DAO class&#10;- Created controllers for GhostNet, Person, and Login&#10;- Developed JSF pages: Login, Home, addPerson, addGhostNet&#10;- Implemented utility classes: Session management, RangeValidator for longitude and latitude inputs, Login filter to protect resources from unauthorized access&#10;- Styled the entire project with CSS&#10;- Added test classes for DAOs, controllers, and utility classes using JUnit and Mockito" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Implement GhostNet DAO, Controllers, JSF pages, Utils, CSS, and Tests&#10;&#10;- Added GhostNet DAO class&#10;- Created controllers for GhostNet, Person, and Login&#10;- Developed JSF pages: Login, Home, addPerson, addGhostNet&#10;- Implemented utility classes: Session management, RangeValidator for longitude and latitude inputs, Login filter to protect resources from unauthorized access&#10;- Styled the entire project with CSS&#10;- Added test classes for DAOs, controllers, and utility classes using JUnit and Mockito" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
