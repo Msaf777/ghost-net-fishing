@@ -3,14 +3,18 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Login - Geisternetzte Verwaltung</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body styleClass="container">
 
-<h:head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login - Geisternetzte Verwaltung</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
-</h:head>
-<h:body styleClass="container">
         <div class="form__card">
             <div class="form__header">
                 <h1 class="form__title">Login</h1>
@@ -26,7 +30,7 @@
                     </div>
                     <p:message for="name"/>
 
-                    <div class="form__row" >
+                    <div class="form__row">
                         <p:outputLabel for="phone" value="Telefonnummer:" styleClass="form__label"/>
                         <p:inputText id="phone" value="#{loginController.phoneNumber}"
                                      required="#{!loginController.stayAnonymous}"
@@ -53,5 +57,6 @@
                 </h:form>
             </div>
         </div>
-</h:body>
+    </h:body>
+</f:view>
 </html>

@@ -4,13 +4,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Person Registration</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
-</h:head>
-<h:body styleClass="container">
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+        <title>Person Registration</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body styleClass="container">
+
         <div class="form__card">
             <div class="form__header">
                 <p:link outcome="#{personController.loggedIn ? 'home' : 'login'}" styleClass="form__header__back-link">
@@ -77,5 +81,6 @@
                 </h:form>
             </div>
         </div>
-</h:body>
+    </h:body>
+</f:view>
 </html>

@@ -1,6 +1,7 @@
-@import url("util.css");
-@import url("home.css");
-@import url("ghostNet.css");
+@import "util.css.xhtml?ln=css";
+@import "home.css.xhtml?ln=css";
+@import "ghostNet.css.xhtml?ln=css";
+
 
 
 /* Globale Stile */

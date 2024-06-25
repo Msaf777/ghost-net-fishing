@@ -3,22 +3,28 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Geisternetzte Verwaltung</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
-</h:head>
-<h:body styleClass="container home__background">
-    <p:growl id="growl" showDetail="true" sticky="false"/>
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+        <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+        <title>Geisternetzte Verwaltung</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
+
+    </h:head>
+    <h:body styleClass="container home__background">
+        <p:growl id="growl" showDetail="true" sticky="false"/>
         <div class="home__content">
             <h1 class="home__title">Willkommen bei der Geisternetze Verwaltung</h1>
             <span class="home__greeting">Hallo ${personController.loggedInPersonName}</span>
             <p:link value="Geisternetz melden" outcome="/addGhostNet.xhtml" styleClass="home__link"/>
-            <p:link value="Geisternetz anzeigen" outcome="/listGhostNets.xhtml" styleClass="home__link" />
+            <p:link value="Geisternetz anzeigen" outcome="/listGhostNets.xhtml" styleClass="home__link"/>
             <h:form>
                 <p:commandButton value="Logout" action="#{loginController.logout}" styleClass="home__button"/>
             </h:form>
         </div>
-</h:body>
+    </h:body>
+</f:view>
 </html>
