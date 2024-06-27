@@ -3,21 +3,18 @@ package org.saflo.ghostNetFishing.controller;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.MatchMode;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
-import org.saflo.ghostNetFishing.model.DAO.GhostNetDAO;
 import org.saflo.ghostNetFishing.model.Entity.GhostNet;
 import org.saflo.ghostNetFishing.model.Entity.Person;
 import org.saflo.ghostNetFishing.model.enums.GhostNetStatus;
 import org.saflo.ghostNetFishing.model.enums.PersonType;
+import org.saflo.ghostNetFishing.service.FlashMessageService;
+import org.saflo.ghostNetFishing.service.GhostNetService;
 import org.saflo.ghostNetFishing.util.SessionUtil;
 
 import java.io.Serializable;
@@ -35,8 +32,23 @@ import java.util.stream.Collectors;
 @ViewScoped
 public class GhostNetController implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(GhostNetController.class.getName());
+
+    private static final double MIN_LATITUDE = -90.0000;
+    private static final double MAX_LATITUDE = 90.0000;
+    private static final double MIN_LONGITUDE = -180.0000;
+    private static final double MAX_LONGITUDE = 180.0000;
+
+
+    private GhostNetService ghostNetService;
+    private FlashMessageService flashMessageService;
+
     @Inject
-    private GhostNetDAO ghostNetDAO;
+    public GhostNetController(GhostNetService ghostNetService, FlashMessageService flashMessageService) {
+        this.ghostNetService = ghostNetService;
+        this.flashMessageService = flashMessageService;
+    }
+
+    public GhostNetController(){}
 
     private Double latitude;
     private Double longitude;
@@ -49,6 +61,7 @@ public class GhostNetController implements Serializable {
     private FilterMeta filterBy;
     private final List<String> netStatuses = Arrays.stream(GhostNetStatus.values())
             .map(Enum::name)
+            .filter(status -> !status.equals(GhostNetStatus.UNKNOWN.toString()))
             .collect(Collectors.toList());
 
 
@@ -56,11 +69,9 @@ public class GhostNetController implements Serializable {
 
     @PostConstruct
     public void init() {
-        simpleModel = new DefaultMapModel<>();
         populateMapWithGhostNets();
 
         filteredGhostNets = new ArrayList<>();
-        filterBy = new FilterMeta();
 
         filterBy = FilterMeta.builder()
                 .field("status")
@@ -71,6 +82,22 @@ public class GhostNetController implements Serializable {
 
 
     //Getter und Setter
+
+    public double getMIN_LATITUDE() {
+        return GhostNetController.MIN_LATITUDE;
+    }
+
+    public double getMAX_LATITUDE() {
+        return GhostNetController.MAX_LATITUDE;
+    }
+
+    public double getMIN_LONGITUDE() {
+        return GhostNetController.MIN_LONGITUDE;
+    }
+
+    public double getMAX_LONGITUDE() {
+        return GhostNetController.MAX_LONGITUDE;
+    }
 
     public Double getLatitude() {
         return latitude;
@@ -120,25 +147,18 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Populates the map with GhostNets and sets markers based on their status.
+     * Populates the map with GhostNets.
      */
     public void populateMapWithGhostNets() {
-        simpleModel = new DefaultMapModel<>();
-        List<GhostNet> ghostNets = ghostNetDAO.getAvailableGhostNets();
-        for (GhostNet ghostNet : ghostNets) {
-            simpleModel.addOverlay(new Marker<>(new LatLng(ghostNet.getLatitude(), ghostNet.getLongitude()), ghostNet.getEstimatedSize() + "m²", ghostNet.getId(),
-                    ghostNet.getStatus() == GhostNetStatus.REPORTED ?
-                            "https://maps.google.com/mapfiles/ms/micons/blue-dot.png" :
-                            "https://maps.google.com/mapfiles/ms/micons/pink-dot.png"));
-        }
+        simpleModel = ghostNetService.createMapModel();
     }
 
     /**
+     * Retrieves all GhostNets.
      * @return a list of all GhostNets.
      */
     public List<GhostNet> getGhostNets() {
-        LOGGER.info("Fetching all ghost nets");
-        return ghostNetDAO.getAllGhostNets();
+        return ghostNetService.getAllGhostNets();
     }
 
     /**
@@ -155,7 +175,7 @@ public class GhostNetController implements Serializable {
         LOGGER.info("Fetching filtered ghost nets");
         LOGGER.info("Status: " + filterBy.getFilterValue());
         if (filterBy != null && filterBy.getFilterValue() != null) {
-            filteredGhostNets = ghostNetDAO.getFilteredGhostNets(filterBy);
+            filteredGhostNets = ghostNetService.getFilteredGhostNets(filterBy);
         }
 
         return filteredGhostNets;
@@ -169,32 +189,26 @@ public class GhostNetController implements Serializable {
      * Adds a new GhostNet anonymously.
      */
     public void addGhostNetAnonymously() {
-        GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize);
-        LOGGER.info("Adding a new ghost net");
-        ghostNetDAO.addGhostNet(newGhostNet);
-        LOGGER.info("Ghost net added and reset");
-
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", ""));
+        ghostNetService.addGhostNetAnonymously(latitude, longitude, estimatedSize);
+        flashMessageService.addFlashMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", "");
     }
 
     /**
      * Adds a new GhostNet with the logged-in user's information.
      */
     public void addGhostNet() {
-        GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize, SessionUtil.getLoggedInPerson());
-        LOGGER.info("Adding a new ghost net");
-        ghostNetDAO.addGhostNet(newGhostNet);
-        LOGGER.info("Ghost net added and reset");
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", ""));
+        ghostNetService.addGhostNet(latitude, longitude, estimatedSize, SessionUtil.getLoggedInPerson());
+        flashMessageService.addFlashMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", "");
     }
 
     /**
      * Handles adding a new GhostNet based on the user's login status and anonymity preference.
+     * @return the target page after adding the GhostNet.
      */
-    public void handleAddGhostNet() {
+    public String handleAddGhostNet() {
         if (!SessionUtil.isLoggedIn()) {
             addGhostNetAnonymously();
-            return;
+            return "login?faces-redirect=true";
         }
 
         Person loggedInPerson = SessionUtil.getLoggedInPerson();
@@ -205,36 +219,16 @@ public class GhostNetController implements Serializable {
         } else {
             addGhostNet();
         }
+        return "listGhostNets?faces-redirect=true";
     }
 
     /**
-     * Updates the status of a GhostNet based on the given ID and new status.
+     * Updates the status of a GhostNet.
      * @param ghostNetId the ID of the GhostNet.
      * @param newStatus the new status of the GhostNet.
      */
     public void updateStatus(Long ghostNetId, String newStatus) {
-        GhostNet updatedGhostNet = this.ghostNetDAO.findGhostNet(ghostNetId);
-        if (updatedGhostNet != null) {
-            LOGGER.info("Updating status for net ID: " + ghostNetId);
-            updatedGhostNet.setStatus(GhostNetStatus.valueOf(newStatus));
-            switch (newStatus) {
-                case "RECOVERY_PENDING":
-                    updatedGhostNet.setRecoveryPendingBy(SessionUtil.getLoggedInPerson());
-                    break;
-                case "RECOVERED":
-                    updatedGhostNet.setRecoveredBy(SessionUtil.getLoggedInPerson());
-                    break;
-                case "LOST":
-                    updatedGhostNet.setLosingReportedBy(SessionUtil.getLoggedInPerson());
-                    break;
-                default:
-                    break;
-            }
-            ghostNetDAO.updateGhostNet(updatedGhostNet);
-            LOGGER.info("Status updated to " + newStatus);
-        } else {
-            LOGGER.warning("No ghost net found with ID: " + ghostNetId);
-        }
+        ghostNetService.updateGhostNetStatus(ghostNetId, GhostNetStatus.valueOf(newStatus), SessionUtil.getLoggedInPerson());
     }
 
     /**
@@ -286,6 +280,5 @@ public class GhostNetController implements Serializable {
             disableSplitButton = false;
         }
     }
-
 
 }

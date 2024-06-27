@@ -16,6 +16,9 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the {@link LoginFilter} class.
+ */
 @ExtendWith(MockitoExtension.class)
 class LoginFilterTest {
 
@@ -37,7 +40,9 @@ class LoginFilterTest {
     }
 
 
-    // Wenn ein eingeloggter Benutzer die Login-Seite aufruft, wird er zur Startseite weitergeleitet
+    /**
+     * Tests that a logged-in user is redirected to the home page when accessing the login page.
+     */
     @Test
     public void whenLoggedInUserAccessesLogin_thenRedirectToHome() throws IOException, ServletException {
         when(request.getRequestURI()).thenReturn("/login.xhtml");
@@ -53,7 +58,9 @@ class LoginFilterTest {
         }
     }
 
-    // Wenn ein nicht eingeloggter Benutzer eine geschützte Seite aufruft, wird er zur Login-Seite weitergeleitet
+    /**
+     * Tests that a non-logged-in user is redirected to the login page when accessing a protected page.
+     */
     @Test
     public void whenNotLoggedInUserAccessesProtectedPage_thenRedirectToLogin() throws ServletException, IOException {
         when(request.getRequestURI()).thenReturn("/home.xhtml");
@@ -67,7 +74,9 @@ class LoginFilterTest {
         }
     }
 
-    // Wenn ein nicht eingeloggter Benutzer die Login-Seite aufruft, wird die Filterkette fortgesetzt
+    /**
+     * Tests that a non-logged-in user continues the filter chain when accessing the login page.
+     */
     @Test
     public void whenNotLoggedInUserAccessesLogin_thenChainContinues() throws IOException, ServletException {
         when(request.getRequestURI()).thenReturn("/login.xhtml");
@@ -81,7 +90,9 @@ class LoginFilterTest {
         }
     }
 
-    // Wenn ein eingeloggter Benutzer eine geschützte Seite aufruft, wird die Filterkette fortgesetzt
+    /**
+     * Tests that a logged-in user continues the filter chain when accessing a protected page.
+     */
     @Test
     public void whenLoggedInUserAccessesProtectedPage_thenChainContinues() throws IOException, ServletException {
         when(request.getRequestURI()).thenReturn("/home.xhtml");

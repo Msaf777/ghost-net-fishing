@@ -9,17 +9,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="Java-Doc in English">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="feat: Add service layer and password encryption, update tests and documentation&#10;&#10;- Added a service layer between controller and DAO classes.&#10;- Implemented password encryption for login functionality.&#10;- Saved encrypted passwords in the database using Spring Security (BCrypt).&#10;- Added JUnit tests for the new classes.&#10;- Updated existing JUnit tests to reflect new changes.&#10;- Added JavaDoc comments for the new classes.&#10;- Updated JavaDoc comments for the modified classes and methods.">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/exception/CustomDatabaseException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/FlashMessageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/GhostNetService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/PersonService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/CDIServiceLocator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/PasswordUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/NameValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/PasswordValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/PhonNumberValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/FlashMessageServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/GhostNetServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/PersonServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/UserServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/NameValidatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/PasswordValidatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/PhonNumberValidatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/GhostNetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/GhostNetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/PersonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/PersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/PersonDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/RangeValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/RangeValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/addGhostNet.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/addGhostNet.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/addPerson.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/addPerson.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/listGhostNets.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/listGhostNets.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/login.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/ghostNet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/ghostNet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/util.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/util.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/GhostNetControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/GhostNetControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/LoginControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/LoginControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/PersonControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/PersonControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/PersonDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/PersonDAOTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/LoginFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/LoginFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/RangeValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/RangeValidatorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,9 +64,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="jsf" />
         <option value="CSS File" />
+        <option value="Class" />
         <option value="JUnit5 Test Class" />
       </list>
     </option>
@@ -84,6 +115,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "JUnit.FlashMessageServiceTest.executor": "Run",
+    "JUnit.FlashMessageServiceTest.whenAddFlashMessage_thenFlashMessageIsAdded.executor": "Run",
     "JUnit.GhostNetControllerTest.executor": "Run",
     "JUnit.GhostNetControllerTest.testAddGhostNet.executor": "Run",
     "JUnit.GhostNetControllerTest.testPopulateMapWithGhostNets.executor": "Run",
@@ -93,6 +126,7 @@
     "JUnit.GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse.executor": "Run",
     "JUnit.GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse.executor": "Run",
     "JUnit.GhostNetControllerTest.wenn_StatusIstReportedUndPersonIstRecovererDann_ReportRecoveryPendingAllowedIstTrue.executor": "Run",
+    "JUnit.GhostNetControllerTest.wenn_StatusIstUnbekanntDann_getStatusInGermanIstUnbekannt.executor": "Run",
     "JUnit.GhostNetControllerTest.whenAddGhostNet_thenGhostNetIsAdded.executor": "Run",
     "JUnit.GhostNetControllerTest.whenHandleAddGhostNetAnonymously_thenGhostNetIsAddedWithoutReporter.executor": "Run",
     "JUnit.GhostNetDAOTest.executor": "Run",
@@ -103,27 +137,58 @@
     "JUnit.GhostNetDAOTest.whenGetAllGhostNetsCalled_thenListOfGhostNetsIsReturned.executor": "Run",
     "JUnit.GhostNetDAOTest.whenGetAvailableGhostNetsCalled_thenListOfGhostNetsIsReturned.executor": "Run",
     "JUnit.GhostNetDAOTest.whenGetFilteredGhostNetsCalled_thenListOfGhostNetsIsReturned.executor": "Run",
+    "JUnit.GhostNetDAOTest.whenUpdateGhostNetCalled_andExceptionOccurs_thenTransactionIsRolledBack.executor": "Run",
     "JUnit.GhostNetDAOTest.whenUpdateGhostNetCalled_thenGhostNetIsMerged.executor": "Run",
+    "JUnit.GhostNetServiceTest.executor": "Run",
+    "JUnit.GhostNetServiceTest.whenAddGhostNetAnonymously_thenGhostNetIsAdded.executor": "Run",
+    "JUnit.GhostNetServiceTest.whenAddGhostNet_thenGhostNetIsAdded.executor": "Run",
+    "JUnit.GhostNetServiceTest.whenCreateMapModel_thenMarkersAreAddedToMapModel.executor": "Run",
+    "JUnit.GhostNetServiceTest.whenGetAllGhostNets_thenListOfGhostNetsIsReturned.executor": "Run",
+    "JUnit.GhostNetServiceTest.whenGetFilteredGhostNets_thenListOfFilteredGhostNetsIsReturned.executor": "Run",
+    "JUnit.GhostNetServiceTest.whenUpdateGhostNetStatus_thenGhostNetStatusIsUpdated.executor": "Run",
     "JUnit.LoginControllerTest.executor": "Run",
     "JUnit.LoginControllerTest.whenLoginAnonymously_thenRedirectToAddGhostNet.executor": "Run",
     "JUnit.LoginControllerTest.whenLoginWithInvalidUser_thenShowErrorMessage.executor": "Run",
     "JUnit.LoginControllerTest.whenLoginWithValidUser_thenRedirectToHome.executor": "Run",
     "JUnit.LoginControllerTest.whenLogout_thenRedirectToLogin.executor": "Run",
+    "JUnit.LoginFilterTest.executor": "Run",
     "JUnit.LoginFilterTest.whenLoggedInUserAccessesLogin_thenRedirectToHome.executor": "Run",
     "JUnit.LoginFilterTest.whenLoggedInUserAccessesProtectedPage_thenChainContinues.executor": "Run",
     "JUnit.LoginFilterTest.whenNotLoggedInUserAccessesLogin_thenChainContinues.executor": "Run",
     "JUnit.LoginFilterTest.whenNotLoggedInUserAccessesProtectedPage_thenRedirectToLogin.executor": "Run",
+    "JUnit.NameValidatorTest.executor": "Run",
+    "JUnit.NameValidatorTest.whenNameIsNotAvailable_thenThrowValidatorException.executor": "Run",
+    "JUnit.PasswordValidatorTest.executor": "Run",
     "JUnit.PersonControllerTest.executor": "Run",
+    "JUnit.PersonControllerTest.whenGetLoggedInPersonName_thenReturnUserServiceGetLoggedInPersonName.executor": "Run",
+    "JUnit.PersonControllerTest.whenIsLoggedInPersonRecoverer_thenReturnUserServiceIsLoggedInPersonRecoverer.executor": "Debug",
+    "JUnit.PersonControllerTest.whenIsLoggedIn_thenReturnUserServiceIsLoggedIn.executor": "Run",
     "JUnit.PersonControllerTest.whenRegisterWithExistingUser_thenShowWarningMessage.executor": "Run",
+    "JUnit.PersonControllerTest.whenRegisterWithNewUser_thenRegisterSuccessfully.executor": "Run",
     "JUnit.PersonDAOTest.executor": "Run",
     "JUnit.PersonDAOTest.testAddPerson.executor": "Run",
     "JUnit.PersonDAOTest.testFindPersonByNameAndPhone.executor": "Run",
     "JUnit.PersonDAOTest.testFindPersonByNameAndPhone_NotFound.executor": "Run",
     "JUnit.PersonDAOTest.whenAddPersonCalled_thenPersonIsPersisted.executor": "Run",
+    "JUnit.PersonDAOTest.whenAddPerson_thenFailure.executor": "Run",
+    "JUnit.PersonDAOTest.whenAddPerson_thenPersonIsPersisted.executor": "Run",
+    "JUnit.PersonDAOTest.whenAddPerson_thenSuccess.executor": "Run",
+    "JUnit.PersonDAOTest.whenFindPersonByNameAndPassword_thenFailure.executor": "Run",
+    "JUnit.PersonDAOTest.whenFindPersonByNameAndPassword_thenSuccess.executor": "Run",
+    "JUnit.PersonDAOTest.whenFindPersonByName_thenPersonIsReturned.executor": "Run",
+    "JUnit.PersonDAOTest.whenPersonWithNameAndPhoneExists_thenPersonIsReturned.executor": "Run",
+    "JUnit.PersonServiceTest.executor": "Run",
+    "JUnit.PersonServiceTest.whenIsNameAvailable_thenReturnFalseIfNameIsNotAvailable.executor": "Run",
+    "JUnit.PersonServiceTest.whenIsNameAvailable_thenReturnTrueIfNameIsAvailable.executor": "Run",
+    "JUnit.PersonServiceTest.whenIsPhoneNumberAvailable_thenReturnFalseIfPhoneNumberIsNotAvailable.executor": "Run",
+    "JUnit.PersonServiceTest.whenIsPhoneNumberAvailable_thenReturnTrueIfPhoneNumberIsAvailable.executor": "Run",
+    "JUnit.PersonServiceTest.whenRegisterPerson_thenPersonIsRegisteredAndLoggedIn.executor": "Run",
+    "JUnit.PhonNumberValidatorTest.executor": "Run",
     "JUnit.RangeValidatorTest.executor": "Run",
     "JUnit.RangeValidatorTest.whenValueIsAboveRange_thenValidationFails.executor": "Run",
     "JUnit.RangeValidatorTest.whenValueIsBelowRange_thenValidationFails.executor": "Run",
     "JUnit.RangeValidatorTest.whenValueIsWithinRange_thenValidationPasses.executor": "Run",
+    "JUnit.UserServiceTest.executor": "Run",
     "Maven.ghost-net-fishing [clean].executor": "Run",
     "Maven.ghost-net-fishing [install].executor": "Run",
     "Maven.ghostNetFishing [clean].executor": "Run",
@@ -169,9 +234,12 @@
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.saflo.ghostNetFishing.util.validator" />
       <recent name="org.saflo.ghostNetFishing.model.enums" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.saflo.ghostNetFishing.util.validator" />
+      <recent name="org.saflo.ghostNetFishing.service" />
       <recent name="org.saflo.ghostNetFishing.controller" />
       <recent name="org.saflo.ghostNetFishing.util" />
       <recent name="org.saflo.ghostNetFishing.model.DAO" />
@@ -184,82 +252,81 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="TomEE Server.TomEE 10.1.20">
-    <configuration name="GhostNetControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.PersonDAOTest">
+    <configuration name="PersonDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.model.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="" />
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.model.DAO" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.model.DAO.PersonDAOTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonDAOTest.whenFindPersonByField_thenFailure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.model.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" />
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.model.DAO" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.model.DAO.PersonDAOTest" />
+      <option name="METHOD_NAME" value="whenFindPersonByField_thenFailure" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonDAOTest.whenFindPersonByField_thenSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.model.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" />
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.model.DAO" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.model.DAO.PersonDAOTest" />
+      <option name="METHOD_NAME" value="whenFindPersonByField_thenSuccess" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonDAOTest.whenFindPersonByNameAndPassword_thenFailure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.model.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" />
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.model.DAO" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.model.DAO.PersonDAOTest" />
+      <option name="METHOD_NAME" value="whenFindPersonByNameAndPassword_thenFailure" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PersonDAOTest.whenFindPersonByNameAndPassword_thenSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.saflo.ghostNetFishing.controller.*" />
+          <option name="PATTERN" value="org.saflo.ghostNetFishing.model.DAO.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.controller" />
-      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.controller.GhostNetControllerTest" />
-      <option name="METHOD_NAME" value="wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" />
+      <option name="PACKAGE_NAME" value="org.saflo.ghostNetFishing.model.DAO" />
+      <option name="MAIN_CLASS_NAME" value="org.saflo.ghostNetFishing.model.DAO.PersonDAOTest" />
+      <option name="METHOD_NAME" value="whenFindPersonByNameAndPassword_thenSuccess" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -434,20 +501,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" />
-      <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" />
-      <item itemvalue="JUnit.GhostNetControllerTest" />
-      <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" />
-      <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" />
+      <item itemvalue="JUnit.PersonDAOTest" />
+      <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByField_thenFailure" />
+      <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByField_thenSuccess" />
+      <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByNameAndPassword_thenFailure" />
+      <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByNameAndPassword_thenSuccess" />
       <item itemvalue="TomEE Server.TomEE 10.1.20" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GhostNetControllerTest" />
-        <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtReportedDann_ReportRecoveryPendingAllowedIstFalse" />
-        <item itemvalue="JUnit.GhostNetControllerTest.wenn_StatusIstNichtRecoveryPendingDann_ReportRecoveredAllowedIstFalse" />
-        <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNullDann_toggleSplitButtonAktiviertSplitButton" />
-        <item itemvalue="JUnit.GhostNetControllerTest.wenn_FilterValueIstNichtLostOderRecoveredDann_toggleSplitButtonAktiviertSplitButton" />
+        <item itemvalue="JUnit.PersonDAOTest" />
+        <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByField_thenFailure" />
+        <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByField_thenSuccess" />
+        <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByNameAndPassword_thenFailure" />
+        <item itemvalue="JUnit.PersonDAOTest.whenFindPersonByNameAndPassword_thenSuccess" />
       </list>
     </recent_temporary>
   </component>
@@ -498,7 +565,7 @@
       <workItem from="1718749524442" duration="255000" />
       <workItem from="1718783486653" duration="255000" />
       <workItem from="1718783767029" duration="14445000" />
-      <workItem from="1718832808856" duration="90349000" />
+      <workItem from="1718832808856" duration="154681000" />
     </task>
     <task id="LOCAL-00001" summary="Project init">
       <option name="closed" value="true" />
@@ -556,7 +623,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719182309021</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: Update project configuration and JSF files&#10;&#10;- Added 'docs' folder to .gitignore&#10;- Added &lt;f:view&gt; tag to JSF files&#10;- Imported CSS in JSF files using &lt;h:outputStylesheet&gt; instead of &lt;link&gt; tag&#10;- Modified CSS file URLs in styles.css">
+      <option name="closed" value="true" />
+      <created>1719347474229</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1719347474229</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,7 +667,9 @@
     <MESSAGE value="feat: Implement GhostNet DAO, Controllers, JSF pages, Utils, CSS, and Tests&#10;&#10;- Added GhostNet DAO class&#10;- Created controllers for GhostNet, Person, and Login&#10;- Developed JSF pages: Login, Home, addPerson, addGhostNet&#10;- Implemented utility classes: Session management, RangeValidator for longitude and latitude inputs, Login filter to protect resources from unauthorized access&#10;- Styled the entire project with CSS&#10;- Added test classes for DAOs, controllers, and utility classes using JUnit and Mockito" />
     <MESSAGE value="Refactor: Update method names and logic in GhostNetController and add tests&#10;&#10;- Renamed method CheckFilter to toggleSplitButton in GhostNetController.&#10;- Moved logic from getStatusInGerman method in GhostNetController to the GhostNetStatus Enum by adding a new final field germanStatus.&#10;- Added test methods to GhostNetControllerTest class.&#10;- Added JavaDoc comments for better documentation." />
     <MESSAGE value="Java-Doc in English" />
-    <option name="LAST_COMMIT_MESSAGE" value="Java-Doc in English" />
+    <MESSAGE value="feat: Update project configuration and JSF files&#10;&#10;- Added 'docs' folder to .gitignore&#10;- Added &lt;f:view&gt; tag to JSF files&#10;- Imported CSS in JSF files using &lt;h:outputStylesheet&gt; instead of &lt;link&gt; tag&#10;- Modified CSS file URLs in styles.css" />
+    <MESSAGE value="feat: Add service layer and password encryption, update tests and documentation&#10;&#10;- Added a service layer between controller and DAO classes.&#10;- Implemented password encryption for login functionality.&#10;- Saved encrypted passwords in the database using Spring Security (BCrypt).&#10;- Added JUnit tests for the new classes.&#10;- Updated existing JUnit tests to reflect new changes.&#10;- Added JavaDoc comments for the new classes.&#10;- Updated JavaDoc comments for the modified classes and methods." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add service layer and password encryption, update tests and documentation&#10;&#10;- Added a service layer between controller and DAO classes.&#10;- Implemented password encryption for login functionality.&#10;- Saved encrypted passwords in the database using Spring Security (BCrypt).&#10;- Added JUnit tests for the new classes.&#10;- Updated existing JUnit tests to reflect new changes.&#10;- Added JavaDoc comments for the new classes.&#10;- Updated JavaDoc comments for the modified classes and methods." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

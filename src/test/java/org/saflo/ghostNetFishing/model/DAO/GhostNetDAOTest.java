@@ -24,6 +24,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the {@link GhostNetDAO} class.
+ */
 @ExtendWith(MockitoExtension.class)
 class GhostNetDAOTest {
 
@@ -43,11 +46,17 @@ class GhostNetDAOTest {
 
     private static MockedStatic<DatabaseUtil> databaseUtilMockedStatic;
 
+    /**
+     * Sets up the class-level test environment.
+     */
     @BeforeAll
     public static void setUpClass() {
         databaseUtilMockedStatic = mockStatic(DatabaseUtil.class);
     }
 
+    /**
+     * Cleans up the class-level test environment.
+     */
     @AfterAll
     public static void tearDownClass() {
         databaseUtilMockedStatic.close();
@@ -66,11 +75,11 @@ class GhostNetDAOTest {
 
     }
 
-
+    /**
+     * Tests that a GhostNet is persisted when {@code addGhostNet} is called.
+     */
     @Test
     public void whenAddGhostNetCalled_thenGhostNetIsPersisted() {
-
-        // Arrange
 
         // Act
         ghostNetDAO.addGhostNet(ghostNet);
@@ -82,6 +91,9 @@ class GhostNetDAOTest {
         verify(entityManager, times(1)).close();
     }
 
+    /**
+     * Tests that the transaction is rolled back if an exception occurs during {@code addGhostNet}.
+     */
     @Test
     public void whenAddGhostNetCalled_andExceptionOccurs_thenTransactionIsRolledBack(){
         doThrow(new RuntimeException("Error")).when(entityManager).persist(any(GhostNet.class));
@@ -89,12 +101,15 @@ class GhostNetDAOTest {
 
         // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> ghostNetDAO.addGhostNet(ghostNet));
-        assertEquals("Error", exception.getMessage());
+        assertEquals("Error adding GhostNet", exception.getMessage());
         verify(entityTransaction, times(1)).begin();
         verify(entityTransaction, times(1)).rollback();
         verify(entityManager, times(1)).close();
     }
 
+    /**
+     * Tests that a GhostNet is returned when {@code findGhostNet} is called with a valid ID.
+     */
     @Test
     public void whenFindGhostNetCalled_thenGhostNetIsReturned() {
 
@@ -110,6 +125,9 @@ class GhostNetDAOTest {
 
     }
 
+    /**
+     * Tests that null is returned when {@code findGhostNet} is called with an invalid ID.
+     */
     @Test
     public void whenFindGhostNetCalled_thenNullIsReturned() {
 
@@ -124,7 +142,9 @@ class GhostNetDAOTest {
 
     }
 
-
+    /**
+     * Tests that a GhostNet is merged when {@code updateGhostNet} is called.
+     */
     @Test
     public void whenUpdateGhostNetCalled_thenGhostNetIsMerged() {
 
@@ -141,6 +161,10 @@ class GhostNetDAOTest {
 
     }
 
+
+    /**
+     * Tests that the transaction is rolled back if an exception occurs during {@code updateGhostNet}.
+     */
     @Test
     public void whenUpdateGhostNetCalled_andExceptionOccurs_thenTransactionIsRolledBack() {
         // Arrange
@@ -149,12 +173,15 @@ class GhostNetDAOTest {
 
         // Act & Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> ghostNetDAO.updateGhostNet(ghostNet));
-        assertEquals("Error", exception.getMessage());
+        assertEquals("Error updating GhostNet", exception.getMessage());
         verify(entityTransaction, times(1)).begin();
         verify(entityTransaction, times(1)).rollback();
         verify(entityManager, times(1)).close();
     }
 
+    /**
+     * Tests that a list of GhostNets is returned when {@code getAllGhostNets} is called.
+     */
     @Test
     public void whenGetAllGhostNetsCalled_thenListOfGhostNetsIsReturned() {
 
@@ -173,6 +200,9 @@ class GhostNetDAOTest {
 
     }
 
+    /**
+     * Tests that an empty list is returned when {@code getAllGhostNets} is called and no GhostNets exist.
+     */
     @Test
     public void whenGetAllGhostNetsCalled_thenEmptyListIsReturned() {
         //Arrange
@@ -187,6 +217,9 @@ class GhostNetDAOTest {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Tests that a list of filtered GhostNets is returned when {@code getFilteredGhostNets} is called with valid filter criteria.
+     */
     @Test
     public void whenGetFilteredGhostNetsCalled_thenListOfGhostNetsIsReturned() {
 
@@ -210,6 +243,9 @@ class GhostNetDAOTest {
 
     }
 
+    /**
+     * Tests that an empty list is returned when {@code getFilteredGhostNets} is called with filter criteria that match no GhostNets.
+     */
     @Test
     public void whenGetFilteredGhostNetsCalled_thenEmptyListIsReturned() {
         // Arrange
@@ -228,6 +264,9 @@ class GhostNetDAOTest {
         assertTrue(result.isEmpty());
     }
 
+    /**
+     * Tests that a list of available GhostNets is returned when {@code getAvailableGhostNets} is called.
+     */
     @Test
     public void whenGetAvailableGhostNetsCalled_thenListOfGhostNetsIsReturned() {
 
@@ -247,6 +286,9 @@ class GhostNetDAOTest {
 
     }
 
+    /**
+     * Tests that an empty list is returned when {@code getAvailableGhostNets} is called and no GhostNets are available.
+     */
     @Test
     public void whenGetAvailableGhostNetsCalled_thenEmptyListIsReturned() {
         // Arrange

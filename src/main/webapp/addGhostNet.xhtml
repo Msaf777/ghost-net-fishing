@@ -31,8 +31,8 @@
                                      required="true"
                                      requiredMessage="Breitengrad ist erforderlich." styleClass="form__input"
                                      validator="rangeValidator">
-                            <f:attribute name="minValue" value="-90.0000"/>
-                            <f:attribute name="maxValue" value="90.0000"/>
+                            <f:attribute name="minValue" value="#{ghostNetController.MIN_LATITUDE}"/>
+                            <f:attribute name="maxValue" value="#{ghostNetController.MAX_LATITUDE}"/>
                             <p:keyFilter mask="num"/>
                         </p:inputText>
                     </div>
@@ -44,8 +44,8 @@
                                      required="true"
                                      requiredMessage="Längengrad ist erforderlich." styleClass="form__input"
                                      validator="rangeValidator">
-                            <f:attribute name="minValue" value="-180.0000"/>
-                            <f:attribute name="maxValue" value="180.0000"/>
+                            <f:attribute name="minValue" value="#{ghostNetController.MIN_LONGITUDE}"/>
+                            <f:attribute name="maxValue" value="#{ghostNetController.MAX_LONGITUDE}"/>
                             <p:keyFilter mask="num"/>
                         </p:inputText>
                     </div>

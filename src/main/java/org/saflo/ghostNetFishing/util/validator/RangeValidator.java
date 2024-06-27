@@ -1,4 +1,4 @@
-package org.saflo.ghostNetFishing.util;
+package org.saflo.ghostNetFishing.util.validator;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;

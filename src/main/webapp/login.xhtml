@@ -25,27 +25,18 @@
                     <div class="form__row">
                         <p:outputLabel for="name" value="Name:" styleClass="form__label"/>
                         <p:inputText id="name" value="#{loginController.name}"
-                                     required="#{!loginController.stayAnonymous}"
-                                     disabled="#{loginController.stayAnonymous}" label="Name" styleClass="form__input"/>
+                                     required="true"
+                                     label="Name" styleClass="form__input"/>
                     </div>
                     <p:message for="name"/>
 
                     <div class="form__row">
-                        <p:outputLabel for="phone" value="Telefonnummer:" styleClass="form__label"/>
-                        <p:inputText id="phone" value="#{loginController.phoneNumber}"
-                                     required="#{!loginController.stayAnonymous}"
-                                     disabled="#{loginController.stayAnonymous}" label="Telefonnummer"
-                                     styleClass="form__input"/>
+                        <p:outputLabel for="password" value="Passwort:" styleClass="form__label" />
+                        <p:password id="password" value="#{loginController.password}"
+                                    required="true"
+                                    label="Passwort" styleClass="form__input" />
                     </div>
-                    <p:message for="phone"/>
-
-                    <div class="form__row">
-                        <p:outputLabel for="anonym" value="oder anonym Geistnetze Melden:" styleClass="form__label"/>
-                        <p:selectBooleanCheckbox id="anonym" value="#{loginController.stayAnonymous}"
-                                                 styleClass="form__checkbox">
-                            <p:ajax update=":form"/>
-                        </p:selectBooleanCheckbox>
-                    </div>
+                    <p:message for="password" />
 
                     <div class="form__row form__row--center">
                         <p:commandButton value="Anmelden" action="#{loginController.login()}" ajax="true"
@@ -53,6 +44,10 @@
                     </div>
                     <div class="form__row">
                         <h:link value="Neue Konto Erstellen" outcome="/addPerson.xhtml" styleClass="form__link"/>
+                    </div>
+
+                    <div class="form__row">
+                        <h:link value="anonym Geistnetze Melden" outcome="/addGhostNet.xhtml" styleClass="form__link"/>
                     </div>
                 </h:form>
             </div>
