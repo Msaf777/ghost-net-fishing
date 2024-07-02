@@ -60,8 +60,8 @@
                     </div>
                     <p:message for="size"/>
 
-                    <h:panelGroup id="myDiv" layout="block"
-                                  rendered="#{personController.isPersonReporterAndLoggedIn()}">
+                    <h:panelGroup layout="block"
+                                  rendered="#{personController.isLoggedInPersonReporter()}">
                         <div class="form__row">
                             <p:outputLabel for="anonym" value="anonym Geistnetze Melden:" styleClass="form__label"/>
                             <p:selectBooleanCheckbox id="anonym" value="#{ghostNetController.stayAnonymous}"

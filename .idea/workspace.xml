@@ -10,47 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2d0a09a-90df-467c-8d16-3954d272aec4" name="Changes" comment="feat: Add service layer and password encryption, update tests and documentation&#10;&#10;- Added a service layer between controller and DAO classes.&#10;- Implemented password encryption for login functionality.&#10;- Saved encrypted passwords in the database using Spring Security (BCrypt).&#10;- Added JUnit tests for the new classes.&#10;- Updated existing JUnit tests to reflect new changes.&#10;- Added JavaDoc comments for the new classes.&#10;- Updated JavaDoc comments for the modified classes and methods.">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/exception/CustomDatabaseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/FlashMessageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/GhostNetService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/PersonService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/CDIServiceLocator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/PasswordUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/NameValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/PasswordValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/PhonNumberValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/FlashMessageServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/GhostNetServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/PersonServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/UserServiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/NameValidatorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/PasswordValidatorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/PhonNumberValidatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/50b09d7d-3887-49f6-931f-e25f71b05e33.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/GhostNetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/GhostNetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/PersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/controller/PersonController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/PersonDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/DAO/PersonDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/model/Entity/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/RangeValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/util/validator/RangeValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/PersonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/saflo/ghostNetFishing/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/addGhostNet.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/addGhostNet.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/addPerson.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/addPerson.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/ghostNet.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/ghostNet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/util.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/util.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/GhostNetControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/GhostNetControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/LoginControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/LoginControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/PersonControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/controller/PersonControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/GhostNetDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/PersonDAOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/model/DAO/PersonDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/LoginFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/LoginFilterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/RangeValidatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/util/validator/RangeValidatorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/saflo/ghostNetFishing/service/UserServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,6 +159,7 @@
     "JUnit.UserServiceTest.executor": "Run",
     "Maven.ghost-net-fishing [clean].executor": "Run",
     "Maven.ghost-net-fishing [install].executor": "Run",
+    "Maven.ghost-net-fishing [test].executor": "Run",
     "Maven.ghostNetFishing [clean].executor": "Run",
     "Maven.ghostNetFishing [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -252,7 +221,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.PersonDAOTest">
+  <component name="RunManager" selected="TomEE Server.TomEE 10.1.20">
     <configuration name="PersonDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ghost-net-fishing" />
       <extension name="coverage">
@@ -566,6 +535,7 @@
       <workItem from="1718783486653" duration="255000" />
       <workItem from="1718783767029" duration="14445000" />
       <workItem from="1718832808856" duration="154681000" />
+      <workItem from="1719762211036" duration="20632000" />
     </task>
     <task id="LOCAL-00001" summary="Project init">
       <option name="closed" value="true" />

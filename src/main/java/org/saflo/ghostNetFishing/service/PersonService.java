@@ -40,8 +40,7 @@ public class PersonService {
      * @return false if the user exists, otherwise true.
      */
     public boolean isNameAvailable(String name) {
-        Person existingUser = personDAO.findPersonByName(name);
-        return existingUser == null;
+        return personDAO.findPersonByName(name) == null;
     }
 
     /**

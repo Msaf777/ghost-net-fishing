@@ -104,17 +104,6 @@ class PersonControllerTest {
     }
 
     /**
-     * Tests if the user is a reporter and logged in.
-     */
-    @Test
-    void whenIsPersonReporterAndLoggedIn_thenReturnTrue() {
-        when(userService.isPersonReporterAndLoggedIn()).thenReturn(true);
-
-        assertTrue(personController.isPersonReporterAndLoggedIn());
-        verify(userService).isPersonReporterAndLoggedIn();
-    }
-
-    /**
      * Tests the retrieval of the logged-in person's name.
      */
     @Test

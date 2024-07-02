@@ -26,7 +26,6 @@ public class LoginController implements Serializable {
     private String name;
     private String password;
 
-    private boolean stayAnonymous;
 
     @Inject
     public LoginController(PersonDAO personDAO) {

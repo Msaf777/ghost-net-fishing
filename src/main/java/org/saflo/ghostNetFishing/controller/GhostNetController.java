@@ -42,14 +42,6 @@ public class GhostNetController implements Serializable {
     private GhostNetService ghostNetService;
     private FlashMessageService flashMessageService;
 
-    @Inject
-    public GhostNetController(GhostNetService ghostNetService, FlashMessageService flashMessageService) {
-        this.ghostNetService = ghostNetService;
-        this.flashMessageService = flashMessageService;
-    }
-
-    public GhostNetController(){}
-
     private Double latitude;
     private Double longitude;
     private int estimatedSize = 1;
@@ -66,6 +58,15 @@ public class GhostNetController implements Serializable {
 
 
     private MapModel<Long> simpleModel;
+
+    @Inject
+    public GhostNetController(GhostNetService ghostNetService, FlashMessageService flashMessageService) {
+        this.ghostNetService = ghostNetService;
+        this.flashMessageService = flashMessageService;
+    }
+
+    public GhostNetController(){}
+
 
     @PostConstruct
     public void init() {
@@ -147,6 +148,13 @@ public class GhostNetController implements Serializable {
     }
 
     /**
+     * @return true if the menu button should be disabled, otherwise false.
+     */
+    public boolean isDisableMenuButton() {
+        return this.disableSplitButton;
+    }
+
+    /**
      * Populates the map with GhostNets.
      */
     public void populateMapWithGhostNets() {
@@ -161,12 +169,6 @@ public class GhostNetController implements Serializable {
         return ghostNetService.getAllGhostNets();
     }
 
-    /**
-     * @return true if the menu button should be disabled, otherwise false.
-     */
-    public boolean isDisableMenuButton() {
-        return this.disableSplitButton;
-    }
 
     /**
      * @return a list of filtered GhostNets based on the current filter.

@@ -50,10 +50,4 @@ public class UserService {
         return loggedInPerson != null && loggedInPerson.getType().equals(PersonType.REPORTER);
     }
 
-    /**
-     * @return true if the user is a Reporter and is logged in, otherwise false.
-     */
-    public boolean isPersonReporterAndLoggedIn() {
-        return isLoggedIn() && isLoggedInPersonReporter();
-    }
 }

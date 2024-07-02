@@ -79,10 +79,6 @@ public class PersonController implements Serializable {
         return userService.isLoggedInPersonReporter();
     }
 
-    public boolean isPersonReporterAndLoggedIn() {
-        return userService.isPersonReporterAndLoggedIn();
-    }
-
     public String getLoggedInPersonName() {
         return userService.getLoggedInPersonName();
     }
