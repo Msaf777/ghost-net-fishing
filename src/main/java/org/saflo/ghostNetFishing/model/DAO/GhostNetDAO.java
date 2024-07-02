@@ -4,6 +4,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import org.primefaces.model.FilterMeta;
+import org.saflo.ghostNetFishing.exception.CustomDatabaseException;
 import org.saflo.ghostNetFishing.model.Entity.GhostNet;
 import org.saflo.ghostNetFishing.model.enums.GhostNetStatus;
 import org.saflo.ghostNetFishing.util.DatabaseUtil;
@@ -13,12 +14,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Data Access Object (DAO) for managing ghostNets in the database.
+ */
 @Named
 @RequestScoped
 public class GhostNetDAO implements Serializable {
     private static final Logger logger = Logger.getLogger(GhostNetDAO.class.getName());
 
-
+    /**
+     * Adds a new GhostNet to the database.
+     * @param ghostNet the GhostNet entity to be added.
+     */
     public void addGhostNet(GhostNet ghostNet) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -32,17 +39,20 @@ public class GhostNetDAO implements Serializable {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
                 logger.info("Transcation rolled back.");
-                throw e;
             }
+            throw new CustomDatabaseException("Error adding GhostNet", e);
         } finally {
             em.close();
-            logger.info("EntityManager closed after attempting to add a new ghost-net");
         }
     }
 
+    /**
+     * Finds a GhostNet by its ID.
+     * @param id the ID of the GhostNet.
+     * @return the found GhostNet entity, or null if not found.
+     */
     public GhostNet findGhostNet(Long id) {
-        EntityManager em = DatabaseUtil.getEntityManager();
-        try {
+        try (EntityManager em = DatabaseUtil.getEntityManager()) {
             logger.info("Attempting to find ghost-net with ID: " + id);
             GhostNet ghostNet = em.find(GhostNet.class, id);
             if (ghostNet == null) {
@@ -53,14 +63,14 @@ public class GhostNetDAO implements Serializable {
             return ghostNet;
         } catch (Exception e) {
             logger.severe("Error finding ghost-net with ID: " + id + ": " + e.getMessage());
-            throw e; // Optional: re-throwing the exception might depend on how you want to handle errors at a higher level.
-        } finally {
-            em.close();
-            logger.info("EntityManager closed after attempting to find ghost-net with ID: " + id);
+            throw new CustomDatabaseException("Error finding GhostNet", e);
         }
     }
 
-
+    /**
+     * Updates an existing GhostNet in the database.
+     * @param ghostNet the GhostNet entity to be updated.
+     */
     public void updateGhostNet(GhostNet ghostNet) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
@@ -75,17 +85,19 @@ public class GhostNetDAO implements Serializable {
                 em.getTransaction().rollback();
                 logger.info("Transaction rolled back.");
             }
-            throw e;
+            throw new CustomDatabaseException("Error updating GhostNet", e);
         } finally {
             em.close();
-            logger.info("EntityManager closed after attempting to update ghost-net with ID: " + ghostNet.getId());
         }
 
     }
 
+    /**
+     * Retrieves all GhostNets from the database.
+     * @return a list of all GhostNet entities.
+     */
     public List<GhostNet> getAllGhostNets() {
-        EntityManager em = DatabaseUtil.getEntityManager();
-        try {
+        try (EntityManager em = DatabaseUtil.getEntityManager()) {
             logger.info("Attempting to get all ghost-nets");
             List<GhostNet> ghostNets = DatabaseUtil.getEntityManager().createQuery("SELECT g FROM GhostNet g", GhostNet.class).getResultList();
             if (ghostNets.isEmpty()) {
@@ -96,16 +108,17 @@ public class GhostNetDAO implements Serializable {
             return ghostNets;
         } catch (Exception e) {
             logger.severe("Error finding ghost-nets: " + e.getMessage());
-            throw e; // Optional: re-throwing the exception might depend on how you want to handle errors at a higher level.
-        } finally {
-            em.close();
-            logger.info("EntityManager closed after attempting to find all ghost-nets ");
+            throw new CustomDatabaseException("Error finding GhostNets", e);
         }
     }
 
+    /**
+     * Retrieves filtered GhostNets from the database based on the provided filter criteria.
+     * @param filterBy the filter criteria.
+     * @return a list of filtered GhostNet entities.
+     */
     public List<GhostNet> getFilteredGhostNets(FilterMeta filterBy) {
-        EntityManager em = DatabaseUtil.getEntityManager();
-        try {
+        try (EntityManager em = DatabaseUtil.getEntityManager()) {
             logger.info("Attempting to get filtered ghost-nets");
             List<GhostNet> ghostNets = em.createQuery("SELECT g FROM GhostNet g WHERE g.status = :status", GhostNet.class)
                     .setParameter("status", GhostNetStatus.valueOf(filterBy.getFilterValue().toString()))
@@ -118,15 +131,16 @@ public class GhostNetDAO implements Serializable {
             return ghostNets;
         } catch (Exception e) {
             logger.severe("Error finding ghost-nets: " + e.getMessage());
-            throw e; // Optional: re-throwing the exception might depend on how you want to handle errors at a higher level.
-        } finally {
-            em.close();
-            logger.info("EntityManager closed after attempting to find filtered ghost-nets ");
+            throw new CustomDatabaseException("Error finding filtered GhostNets", e);
         }
     }
+
+    /**
+     * Retrieves available GhostNets from the database that have a status of REPORTED or RECOVERY_PENDING.
+     * @return a list of available GhostNet entities.
+     */
     public List<GhostNet> getAvailableGhostNets() {
-        EntityManager em = DatabaseUtil.getEntityManager();
-        try {
+        try (EntityManager em = DatabaseUtil.getEntityManager()) {
             logger.info("Attempting to get available ghost-nets");
             List<GhostNet> ghostNets = em.createQuery("SELECT g FROM GhostNet g WHERE g.status in(:statuses)", GhostNet.class)
                     .setParameter("statuses", Arrays.asList(GhostNetStatus.REPORTED, GhostNetStatus.RECOVERY_PENDING))
@@ -139,11 +153,7 @@ public class GhostNetDAO implements Serializable {
             return ghostNets;
         } catch (Exception e) {
             logger.severe("Error finding ghost-nets: " + e.getMessage());
-            throw e; // Optional: re-throwing the exception might depend on how you want to handle errors at a higher level.
-        } finally {
-            em.close();
-            logger.info("EntityManager closed after attempting to find available ghost-nets ");
-
+            throw new CustomDatabaseException("Error finding available GhostNets", e);
         }
     }
 }

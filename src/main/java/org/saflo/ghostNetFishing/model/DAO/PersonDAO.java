@@ -4,13 +4,15 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import org.saflo.ghostNetFishing.exception.CustomDatabaseException;
 import org.saflo.ghostNetFishing.model.Entity.Person;
 import org.saflo.ghostNetFishing.util.DatabaseUtil;
+import org.saflo.ghostNetFishing.util.PasswordUtil;
 
 import java.util.logging.Logger;
 
 /**
- * Data Access Object (DAO) für die Verwaltung von Personen in der Datenbank.
+ * Data Access Object (DAO) for managing persons in the database.
  */
 @Named
 @RequestScoped
@@ -18,12 +20,14 @@ public class PersonDAO {
     private static final Logger logger = Logger.getLogger(PersonDAO.class.getName());
 
     /**
-     * Fügt eine neue Person zur Datenbank hinzu.
-     * @param person die hinzuzufügende Person.
+     * Adds a new person to the database.
+     * @param person the person to be added.
      */
     public void addPerson(Person person) {
         EntityManager em = DatabaseUtil.getEntityManager();
         try {
+            // Hash the password before saving
+            person.setPassword(PasswordUtil.hashPassword(person.getPassword()));
             logger.info("Starting transaction to add a new person.");
             em.getTransaction().begin();
             em.persist(person);
@@ -35,26 +39,17 @@ public class PersonDAO {
                 em.getTransaction().rollback();
                 logger.info("Transaction rolled back.");
             }
-            throw e;
+            throw new CustomDatabaseException("Error adding Person", e);
         } finally {
             em.close();
-            logger.info("EntityManager closed after attempting to add a new person");
         }
 
     }
 
-
-    /**
-     * Findet eine Person anhand von Name und Telefonnummer.
-     * @param name der Name der Person.
-     * @param phone die Telefonnummer der Person.
-     * @return die gefundene Person oder null, wenn keine Person gefunden wurde.
-     */
-    public Person findPersonByNameAndPhone(String name, String phone){
+    private Person findPersonByField(String field, String value) {
         TypedQuery<Person> query = DatabaseUtil.getEntityManager()
-                .createQuery("SELECT p FROM Person p WHERE p.name = :name AND p.phoneNumber = :phone", Person.class);
-        query.setParameter("name", name);
-        query.setParameter("phone", phone);
+                .createQuery("SELECT p FROM Person p WHERE p." + field + " = :value", Person.class);
+        query.setParameter("value", value);
         try {
             return query.getSingleResult();
         } catch (Exception e) {
@@ -62,4 +57,36 @@ public class PersonDAO {
         }
     }
 
+    /**
+     * Finds a person by name and password.
+     * @param name the name of the person.
+     * @param plainTextPassword the password of the person in plain Text.
+     * @return the found person or null if no person was found.
+     */
+    public Person findPersonByNameAndPassword(String name, String plainTextPassword){
+        Person person = findPersonByField("name", name);
+            if(person != null && PasswordUtil.checkPassword(plainTextPassword, person.getPassword())) {
+                return person;
+            } else {
+                return null;
+            }
+    }
+
+    /**
+     * Finds a person by name.
+     * @param name the name of the person.
+     * @return the found person or null if no person was found.
+     */
+    public Person findPersonByName(String name){
+        return findPersonByField("name", name);
+    }
+
+    /**
+     * Finds a person by phone number.
+     * @param phone the phone number of the person.
+     * @return the found person or null if no person was found.
+     */
+    public Person findPersonByPhone(String phone) {
+        return findPersonByField("phone", phone);
+    }
 }

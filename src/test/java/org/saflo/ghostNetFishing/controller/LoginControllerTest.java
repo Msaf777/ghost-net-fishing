@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 
+/**
+ * Unit tests for the {@link LoginController} class.
+ */
 @ExtendWith(MockitoExtension.class)
 class LoginControllerTest {
 
@@ -49,32 +52,35 @@ class LoginControllerTest {
         sessionUtilMockedStatic.close();
     }
 
-    //Testet, dass der Benutzer bei gültigen Anmeldedaten zur Startseite weitergeleitet wird.
+
+    /**
+     * Tests that the user is redirected to the home page when valid credentials are provided.
+     */
     @Test
     void whenLoginWithValidUser_thenRedirectToHome() {
         Person person = new Person();
-        when(personDAO.findPersonByNameAndPhone("testuser", "123456789")).thenReturn(person);
+        when(personDAO.findPersonByNameAndPassword("testuser", "123456789")).thenReturn(person);
 
         loginController.setName("testuser");
-        loginController.setPhoneNumber("123456789");
-        loginController.setStayAnonymous(false);
+        loginController.setPassword("123456789");
 
             String outcome = loginController.login();
 
             assertEquals("home.xhtml?faces-redirect=true", outcome);
             verify(facesContext, never()).addMessage(any(), any());
-            verify(personDAO).findPersonByNameAndPhone("testuser", "123456789");
+            verify(personDAO).findPersonByNameAndPassword("testuser", "123456789");
             sessionUtilMockedStatic.verify(() -> SessionUtil.setLoggedInPerson(person));
-
     }
 
+    /**
+     * Tests that an error message is shown when invalid credentials are provided.
+     */
     @Test
     void whenLoginWithInvalidUser_thenShowErrorMessage() {
-        when(personDAO.findPersonByNameAndPhone("invaliduser", "wrongnumber")).thenReturn(null);
+        when(personDAO.findPersonByNameAndPassword("invaliduser", "wrongnumber")).thenReturn(null);
 
         loginController.setName("invaliduser");
-        loginController.setPhoneNumber("wrongnumber");
-        loginController.setStayAnonymous(false);
+        loginController.setPassword("wrongnumber");
 
             String outcome = loginController.login();
 
@@ -83,21 +89,14 @@ class LoginControllerTest {
             FacesMessage capturedMessage = messageCaptor.getValue();
             assertEquals(FacesMessage.SEVERITY_ERROR, capturedMessage.getSeverity());
             assertEquals("Falsche Angabe", capturedMessage.getSummary());
-            verify(personDAO).findPersonByNameAndPhone("invaliduser", "wrongnumber");
+            verify(personDAO).findPersonByNameAndPassword("invaliduser", "wrongnumber");
             sessionUtilMockedStatic.verify(() -> SessionUtil.setLoggedInPerson(any()), never());
     }
 
-    @Test
-    void whenLoginAnonymously_thenRedirectToAddGhostNet() {
-        loginController.setStayAnonymous(true);
 
-        String outcome = loginController.login();
-
-        assertEquals("addGhostNet.xhtml?faces-redirect=true", outcome);
-        verify(personDAO, never()).findPersonByNameAndPhone(anyString(), anyString());
-        verify(facesContext, never()).addMessage(any(), any());
-    }
-
+    /**
+     * Tests that the user is redirected to the login page when logging out.
+     */
     @Test
     void whenLogout_thenRedirectToLogin() {
 

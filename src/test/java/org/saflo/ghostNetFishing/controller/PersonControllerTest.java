@@ -1,159 +1,119 @@
 package org.saflo.ghostNetFishing.controller;
 
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.Flash;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.primefaces.PrimeFaces;
-import org.saflo.ghostNetFishing.model.DAO.PersonDAO;
-import org.saflo.ghostNetFishing.model.Entity.Person;
 import org.saflo.ghostNetFishing.model.enums.PersonType;
-import org.saflo.ghostNetFishing.util.SessionUtil;
+import org.saflo.ghostNetFishing.service.FlashMessageService;
+import org.saflo.ghostNetFishing.service.PersonService;
+import org.saflo.ghostNetFishing.service.UserService;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for the {@link PersonController} class.
+ */
 @ExtendWith(MockitoExtension.class)
 class PersonControllerTest {
+
+    @Mock
+    private PersonService personService;
+
+    @Mock
+    private FlashMessageService flashMessageService;
+
+    @Mock
+    private UserService userService;
 
     @InjectMocks
     private PersonController personController;
 
-    @Mock
-    private PersonDAO personDAO;
-
-    @Mock
-    private FacesContext facesContext;
-
-    @Mock
-    private ExternalContext externalContext;
-
-    @Mock
-    private Flash flash;
-
-    @Mock
-    private PrimeFaces primeFaces;
-
-    @Captor
-    private ArgumentCaptor<FacesMessage> messageCaptor;
-
-    private MockedStatic<FacesContext> facesContextMockedStatic;
-    private MockedStatic<SessionUtil> sessionUtilMockedStatic;
-    private MockedStatic<PrimeFaces> primeFacesMockedStatic;
-
     @BeforeEach
     void setUp() {
-        facesContextMockedStatic = Mockito.mockStatic(FacesContext.class);
-        facesContextMockedStatic.when(FacesContext::getCurrentInstance).thenReturn(facesContext);
-
-        lenient().when(facesContext.getExternalContext()).thenReturn(externalContext);
-        lenient().when(externalContext.getFlash()).thenReturn(flash);
-
-        sessionUtilMockedStatic = Mockito.mockStatic(SessionUtil.class);
-        primeFacesMockedStatic = Mockito.mockStatic(PrimeFaces.class);
-        primeFacesMockedStatic.when(PrimeFaces::current).thenReturn(primeFaces);
-    }
-
-    @AfterEach
-    void tearDown() {
-        facesContextMockedStatic.close();
-        sessionUtilMockedStatic.close();
-        primeFacesMockedStatic.close();
-    }
-
-    @Test
-    void whenRegisterWithExistingUser_thenShowWarningMessage() {
-        when(personDAO.findPersonByNameAndPhone("testuser", "123456789")).thenReturn(new Person());
-
-        personController.setName("testuser");
-        personController.setPhoneNumber("123456789");
-        personController.setType(PersonType.RECOVERER);
-
-        String outcome = personController.register();
-
-        assertNull(outcome);
-        assertEquals("Benutzer existiert bereits. Möchten Sie zur Login-Seite weitergeleitet werden?", personController.getMessage());
-        verify(facesContext).addMessage(any(), messageCaptor.capture());
-        FacesMessage capturedMessage = messageCaptor.getValue();
-        assertEquals(FacesMessage.SEVERITY_WARN, capturedMessage.getSeverity());
-        verify(primeFaces).executeScript("PF('confirmDialog').show();");
-    }
-
-    @Test
-    void whenRegisterWithNewUser_thenRegisterSuccessfully() {
-        when(personDAO.findPersonByNameAndPhone("newuser", "987654321")).thenReturn(null);
-
-        personController.setName("newuser");
-        personController.setPhoneNumber("987654321");
+        personController = new PersonController(personService, flashMessageService, userService);
+        personController.setName("Test User");
+        personController.setPhoneNumber("1234567890");
+        personController.setPassword("Password123!");
         personController.setType(PersonType.REPORTER);
-
-        Person mockPerson = new Person();
-        mockPerson.setName("newuser");
-        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(mockPerson);
-
-        String outcome = personController.register();
-
-        assertEquals("home?faces-redirect=true", outcome);
-        verify(personDAO).addPerson(any(Person.class));
-        sessionUtilMockedStatic.verify(() -> SessionUtil.setLoggedInPerson(any(Person.class)));
-        verify(flash).setKeepMessages(true);
-        verify(facesContext).addMessage(any(), messageCaptor.capture());
-        FacesMessage capturedMessage = messageCaptor.getValue();
-        assertEquals("Erfolgreich registriert", capturedMessage.getSummary());
     }
 
+    /**
+     * Tests that a person is successfully registered and a flash message is added.
+     */
     @Test
-    void whenRedirectToLogin_thenReturnLoginPage() {
-        String outcome = personController.redirectToLogin();
-        assertEquals("login?faces-redirect=true", outcome);
+    void whenRegister_thenPersonIsRegisteredAndFlashMessageIsAdded() {
+        // Arrange
+        String expectedMessage = "Willkommen: Test User";
+        when(userService.getLoggedInPersonName()).thenReturn("Test User");
+
+        // Act
+        String result = personController.register();
+
+        // Assert
+        verify(personService).registerPerson("Test User", "1234567890", "Password123!", PersonType.REPORTER);
+        ArgumentCaptor<FacesMessage.Severity> severityCaptor = ArgumentCaptor.forClass(FacesMessage.Severity.class);
+        ArgumentCaptor<String> summaryCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> detailCaptor = ArgumentCaptor.forClass(String.class);
+        verify(flashMessageService).addFlashMessage(severityCaptor.capture(), summaryCaptor.capture(), detailCaptor.capture());
+
+        assertEquals(FacesMessage.SEVERITY_INFO, severityCaptor.getValue());
+        assertEquals("Erfolgreich registriert", summaryCaptor.getValue());
+        assertEquals(expectedMessage, detailCaptor.getValue());
+        assertEquals("home?faces-redirect=true", result);
     }
 
+    /**
+     * Tests if the user is logged in.
+     */
     @Test
-    void whenIsLoggedIn_thenReturnSessionUtilIsLoggedIn() {
-        sessionUtilMockedStatic.when(SessionUtil::isLoggedIn).thenReturn(true);
+    void whenIsLoggedIn_thenReturnTrue() {
+        when(userService.isLoggedIn()).thenReturn(true);
+
         assertTrue(personController.isLoggedIn());
-        sessionUtilMockedStatic.verify(SessionUtil::isLoggedIn);
+        verify(userService).isLoggedIn();
     }
 
+    /**
+     * Tests if the logged-in person is a recoverer.
+     */
     @Test
-    void whenIsLoggedInPersonRecoverer_thenReturnTrueIfPersonTypeIsRecoverer() {
-        Person person = new Person();
-        person.setType(PersonType.RECOVERER);
-        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(person);
+    void whenIsLoggedInPersonRecoverer_thenReturnTrue() {
+        when(userService.isLoggedInPersonRecoverer()).thenReturn(true);
 
         assertTrue(personController.isLoggedInPersonRecoverer());
+        verify(userService).isLoggedInPersonRecoverer();
     }
 
+    /**
+     * Tests if the logged-in person is a reporter.
+     */
     @Test
-    void whenIsLoggedInPersonReporter_thenReturnTrueIfPersonTypeIsReporter() {
-        Person person = new Person();
-        person.setType(PersonType.REPORTER);
-        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(person);
+    void whenIsLoggedInPersonReporter_thenReturnTrue() {
+        when(userService.isLoggedInPersonReporter()).thenReturn(true);
 
         assertTrue(personController.isLoggedInPersonReporter());
+        verify(userService).isLoggedInPersonReporter();
     }
 
+    /**
+     * Tests the retrieval of the logged-in person's name.
+     */
     @Test
-    void whenIsPersonReporterAndLoggedIn_thenReturnTrueIfLoggedInAndPersonTypeIsReporter() {
-        Person person = new Person();
-        person.setType(PersonType.REPORTER);
-        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(person);
+    void whenGetLoggedInPersonName_thenReturnName() {
+        String expectedName = "Test User";
+        when(userService.getLoggedInPersonName()).thenReturn(expectedName);
 
-        assertTrue(personController.isPersonReporterAndLoggedIn());
+        String result = personController.getLoggedInPersonName();
+
+        assertEquals(expectedName, result);
+        verify(userService).getLoggedInPersonName();
     }
-
-    @Test
-    void whenGetLoggedInPersonName_thenReturnFormattedName() {
-        Person person = new Person();
-        person.setName("john");
-        sessionUtilMockedStatic.when(SessionUtil::getLoggedInPerson).thenReturn(person);
-
-        assertEquals("John", personController.getLoggedInPersonName());
-    }
-
 }

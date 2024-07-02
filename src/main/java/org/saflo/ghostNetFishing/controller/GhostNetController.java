@@ -3,21 +3,18 @@ package org.saflo.ghostNetFishing.controller;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.MatchMode;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
-import org.saflo.ghostNetFishing.model.DAO.GhostNetDAO;
 import org.saflo.ghostNetFishing.model.Entity.GhostNet;
 import org.saflo.ghostNetFishing.model.Entity.Person;
 import org.saflo.ghostNetFishing.model.enums.GhostNetStatus;
 import org.saflo.ghostNetFishing.model.enums.PersonType;
+import org.saflo.ghostNetFishing.service.FlashMessageService;
+import org.saflo.ghostNetFishing.service.GhostNetService;
 import org.saflo.ghostNetFishing.util.SessionUtil;
 
 import java.io.Serializable;
@@ -28,15 +25,22 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
- * Controller für die Verwaltung von GhostNets in der GhostNetFishing-Anwendung.
- * Diese Klasse ist verantwortlich für das Hinzufügen, Aktualisieren und Filtern von GhostNets sowie die Verwaltung der Kartenanzeige.
+ * Controller for managing GhostNets in the GhostNetFishing application.
+ * This class is responsible for adding, updating, and filtering GhostNets, as well as managing the map display.
  */
 @Named
 @ViewScoped
 public class GhostNetController implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(GhostNetController.class.getName());
-    @Inject
-    private GhostNetDAO ghostNetDAO;
+
+    private static final double MIN_LATITUDE = -90.0000;
+    private static final double MAX_LATITUDE = 90.0000;
+    private static final double MIN_LONGITUDE = -180.0000;
+    private static final double MAX_LONGITUDE = 180.0000;
+
+
+    private GhostNetService ghostNetService;
+    private FlashMessageService flashMessageService;
 
     private Double latitude;
     private Double longitude;
@@ -49,18 +53,26 @@ public class GhostNetController implements Serializable {
     private FilterMeta filterBy;
     private final List<String> netStatuses = Arrays.stream(GhostNetStatus.values())
             .map(Enum::name)
+            .filter(status -> !status.equals(GhostNetStatus.UNKNOWN.toString()))
             .collect(Collectors.toList());
 
 
     private MapModel<Long> simpleModel;
 
+    @Inject
+    public GhostNetController(GhostNetService ghostNetService, FlashMessageService flashMessageService) {
+        this.ghostNetService = ghostNetService;
+        this.flashMessageService = flashMessageService;
+    }
+
+    public GhostNetController(){}
+
+
     @PostConstruct
     public void init() {
-        simpleModel = new DefaultMapModel<>();
         populateMapWithGhostNets();
 
         filteredGhostNets = new ArrayList<>();
-        filterBy = new FilterMeta();
 
         filterBy = FilterMeta.builder()
                 .field("status")
@@ -71,6 +83,22 @@ public class GhostNetController implements Serializable {
 
 
     //Getter und Setter
+
+    public double getMIN_LATITUDE() {
+        return GhostNetController.MIN_LATITUDE;
+    }
+
+    public double getMAX_LATITUDE() {
+        return GhostNetController.MAX_LATITUDE;
+    }
+
+    public double getMIN_LONGITUDE() {
+        return GhostNetController.MIN_LONGITUDE;
+    }
+
+    public double getMAX_LONGITUDE() {
+        return GhostNetController.MAX_LONGITUDE;
+    }
 
     public Double getLatitude() {
         return latitude;
@@ -120,42 +148,36 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Füllt die Karte mit GhostNets und setzt Marker basierend auf ihrem Status.
-     */
-    public void populateMapWithGhostNets() {
-        simpleModel = new DefaultMapModel<>();
-        List<GhostNet> ghostNets = ghostNetDAO.getAvailableGhostNets();
-        for (GhostNet ghostNet : ghostNets) {
-            simpleModel.addOverlay(new Marker<>(new LatLng(ghostNet.getLatitude(), ghostNet.getLongitude()), ghostNet.getEstimatedSize() + "m²", ghostNet.getId(),
-                    ghostNet.getStatus() == GhostNetStatus.REPORTED ?
-                            "https://maps.google.com/mapfiles/ms/micons/blue-dot.png" :
-                            "https://maps.google.com/mapfiles/ms/micons/pink-dot.png"));
-        }
-    }
-
-    /**
-     * @return eine Liste aller GhostNets.
-     */
-    public List<GhostNet> getGhostNets() {
-        LOGGER.info("Fetching all ghost nets");
-        return ghostNetDAO.getAllGhostNets();
-    }
-
-    /**
-     * @return true, wenn das Menü-Button deaktiviert werden soll, ansonsten false.
+     * @return true if the menu button should be disabled, otherwise false.
      */
     public boolean isDisableMenuButton() {
         return this.disableSplitButton;
     }
 
     /**
-     * @return eine Liste der gefilterten GhostNets basierend auf dem aktuellen Filter.
+     * Populates the map with GhostNets.
+     */
+    public void populateMapWithGhostNets() {
+        simpleModel = ghostNetService.createMapModel();
+    }
+
+    /**
+     * Retrieves all GhostNets.
+     * @return a list of all GhostNets.
+     */
+    public List<GhostNet> getGhostNets() {
+        return ghostNetService.getAllGhostNets();
+    }
+
+
+    /**
+     * @return a list of filtered GhostNets based on the current filter.
      */
     public List<GhostNet> getFilteredGhostNets() {
         LOGGER.info("Fetching filtered ghost nets");
         LOGGER.info("Status: " + filterBy.getFilterValue());
         if (filterBy != null && filterBy.getFilterValue() != null) {
-            filteredGhostNets = ghostNetDAO.getFilteredGhostNets(filterBy);
+            filteredGhostNets = ghostNetService.getFilteredGhostNets(filterBy);
         }
 
         return filteredGhostNets;
@@ -166,35 +188,29 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Fügt ein neues GhostNet anonym hinzu.
+     * Adds a new GhostNet anonymously.
      */
     public void addGhostNetAnonymously() {
-        GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize);
-        LOGGER.info("Adding a new ghost net");
-        ghostNetDAO.addGhostNet(newGhostNet);
-        LOGGER.info("Ghost net added and reset");
-
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", ""));
+        ghostNetService.addGhostNetAnonymously(latitude, longitude, estimatedSize);
+        flashMessageService.addFlashMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", "");
     }
 
     /**
-     * Fügt ein neues GhostNet mit den Informationen des eingeloggten Benutzers hinzu.
+     * Adds a new GhostNet with the logged-in user's information.
      */
     public void addGhostNet() {
-        GhostNet newGhostNet = new GhostNet(latitude, longitude, estimatedSize, SessionUtil.getLoggedInPerson());
-        LOGGER.info("Adding a new ghost net");
-        ghostNetDAO.addGhostNet(newGhostNet);
-        LOGGER.info("Ghost net added and reset");
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", ""));
+        ghostNetService.addGhostNet(latitude, longitude, estimatedSize, SessionUtil.getLoggedInPerson());
+        flashMessageService.addFlashMessage(FacesMessage.SEVERITY_INFO, "Netz ist erfolgreich gemeldet", "");
     }
 
     /**
-     * Handhabt das Hinzufügen eines neuen GhostNets basierend auf dem Login-Status und der Anonymitätspräferenz des Benutzers.
+     * Handles adding a new GhostNet based on the user's login status and anonymity preference.
+     * @return the target page after adding the GhostNet.
      */
-    public void handleAddGhostNet() {
+    public String handleAddGhostNet() {
         if (!SessionUtil.isLoggedIn()) {
             addGhostNetAnonymously();
-            return;
+            return "login?faces-redirect=true";
         }
 
         Person loggedInPerson = SessionUtil.getLoggedInPerson();
@@ -205,42 +221,22 @@ public class GhostNetController implements Serializable {
         } else {
             addGhostNet();
         }
+        return "listGhostNets?faces-redirect=true";
     }
 
     /**
-     * Aktualisiert den Status eines GhostNets basierend auf der gegebenen ID und dem neuen Status.
-     * @param ghostNetId die ID des GhostNets.
-     * @param newStatus der neue Status des GhostNets.
+     * Updates the status of a GhostNet.
+     * @param ghostNetId the ID of the GhostNet.
+     * @param newStatus the new status of the GhostNet.
      */
     public void updateStatus(Long ghostNetId, String newStatus) {
-        GhostNet updatedGhostNet = this.ghostNetDAO.findGhostNet(ghostNetId);
-        if (updatedGhostNet != null) {
-            LOGGER.info("Updating status for net ID: " + ghostNetId);
-            updatedGhostNet.setStatus(GhostNetStatus.valueOf(newStatus));
-            switch (newStatus) {
-                case "RECOVERY_PENDING":
-                    updatedGhostNet.setRecoveryPendingBy(SessionUtil.getLoggedInPerson());
-                    break;
-                case "RECOVERED":
-                    updatedGhostNet.setRecoveredBy(SessionUtil.getLoggedInPerson());
-                    break;
-                case "LOST":
-                    updatedGhostNet.setLosingReportedBy(SessionUtil.getLoggedInPerson());
-                    break;
-                default:
-                    break;
-            }
-            ghostNetDAO.updateGhostNet(updatedGhostNet);
-            LOGGER.info("Status updated to " + newStatus);
-        } else {
-            LOGGER.warning("No ghost net found with ID: " + ghostNetId);
-        }
+        ghostNetService.updateGhostNetStatus(ghostNetId, GhostNetStatus.valueOf(newStatus), SessionUtil.getLoggedInPerson());
     }
 
     /**
-     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "RECOVERY_PENDING" zu setzen.
-     * @param ghostNet das GhostNet.
-     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     * Checks if the current user is authorized to set the status of a GhostNet to "RECOVERY_PENDING".
+     * @param ghostNet the GhostNet.
+     * @return true if the user is authorized, otherwise false.
      */
     public boolean isReportRecoveryPendingAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() == GhostNetStatus.REPORTED &&
@@ -248,9 +244,9 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "RECOVERED" zu setzen.
-     * @param ghostNet das GhostNet.
-     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     * Checks if the current user is authorized to set the status of a GhostNet to "RECOVERED".
+     * @param ghostNet the GhostNet.
+     * @return true if the user is authorized, otherwise false.
      */
     public boolean isReportRecoveredAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() == GhostNetStatus.RECOVERY_PENDING &&
@@ -258,25 +254,25 @@ public class GhostNetController implements Serializable {
     }
 
     /**
-     * Überprüft, ob der aktuelle Benutzer berechtigt ist, den Status eines GhostNets auf "LOST" zu setzen.
-     * @param ghostNet das GhostNet.
-     * @return true, wenn der Benutzer berechtigt ist, ansonsten false.
+     * Checks if the current user is authorized to set the status of a GhostNet to "LOST".
+     * @param ghostNet the GhostNet.
+     * @return true if the user is authorized, otherwise false.
      */
     public boolean isReportLostAllowed(GhostNet ghostNet) {
         return ghostNet.getStatus() != GhostNetStatus.LOST && ghostNet.getStatus() != GhostNetStatus.RECOVERED;
     }
 
     /**
-     * Gibt den Status eines GhostNets auf Deutsch zurück.
-     * @param status der Status des GhostNets.
-     * @return der Status in Deutsch.
+     * Returns the status of a GhostNet in German.
+     * @param status the status of the GhostNet.
+     * @return the status in German.
      */
     public String getStatusInGerman(GhostNetStatus status) {
         return GhostNetStatus.fromStatus(status).getGermanStatus();
     }
 
     /**
-     * Überprüft den aktuellen Filter und aktualisiert den Status des Split-Buttons basierend auf dem Filterwert.
+     * Checks the current filter and updates the status of the split button based on the filter value.
      */
     public void toggleSplitButton() {
         if (filterBy.getFilterValue() != null) {
@@ -286,6 +282,5 @@ public class GhostNetController implements Serializable {
             disableSplitButton = false;
         }
     }
-
 
 }

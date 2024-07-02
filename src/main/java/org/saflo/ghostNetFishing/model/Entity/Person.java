@@ -9,26 +9,30 @@ import org.saflo.ghostNetFishing.model.enums.PersonType;
 public class Person {
     @Id
     @GeneratedValue
-    @Column(name="person_id")
+    @Column(name="person_id", nullable = false)
     private Long id;
 
-    @Column()
+    @Column(nullable = false)
     private String name;
 
-    @Column()
+    @Column(nullable = false)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)
     private PersonType type;
 
+    @Column(nullable = false)
+    private String password;
+
     public Person() {
     }
 
-    public Person(String name, String phoneNumber, PersonType type) {
+    public Person(String name, String phoneNumber, PersonType type, String password) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.type = type;
+        this.password = password;
     }
 
     // Getter und Setter
@@ -58,5 +62,12 @@ public class Person {
 
     public void setType(PersonType type) {
         this.type = type;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

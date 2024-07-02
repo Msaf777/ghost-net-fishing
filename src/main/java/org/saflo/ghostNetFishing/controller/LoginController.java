@@ -13,22 +13,24 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 /**
- * Controller für das Login-Management in der GhostNetFishing-Anwendung.
- * Diese Klasse ist verantwortlich für die Authentifizierung von Benutzern.
+ * Controller for login management in the GhostNetFishing application.
+ * This class is responsible for user authentication.
  */
 @Named
 @ViewScoped
 public class LoginController implements Serializable {
     private static final Logger LOGGER = Logger.getLogger(GhostNetController.class.getName());
 
-    @Inject
     private PersonDAO personDAO;
 
-
     private String name;
-    private String phoneNumber;
+    private String password;
 
-    private boolean stayAnonymous;
+
+    @Inject
+    public LoginController(PersonDAO personDAO) {
+        this.personDAO = personDAO;
+    }
 
     public LoginController() {
     }
@@ -41,49 +43,40 @@ public class LoginController implements Serializable {
         this.name = name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public boolean isStayAnonymous() {
-        return stayAnonymous;
-    }
-
-
-    public void setStayAnonymous(boolean stayAnonymous) {
-        this.stayAnonymous = stayAnonymous;
-    }
 
     /**
-     * Authentifiziert den Benutzer und leitet zur entsprechenden Seite weiter.
-     * @return die Zielseite nach der Authentifizierung.
+     * Authenticates the user and redirects to the appropriate page.
+     *
+     * @return the target page after authentication.
      */
     public String login() {
-        if (!stayAnonymous) {
-            LOGGER.info("The User: " + name + " " + phoneNumber + "attempt to Login");
-            Person user = personDAO.findPersonByNameAndPhone(name.toLowerCase(), phoneNumber);
-            if (user == null) {
-                FacesMessage message = new FacesMessage(
-                        "Falsche Angabe",
-                        "Der eingegebene Name oder die Telefonnummer ist falsch. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.");
-                message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                FacesContext.getCurrentInstance().addMessage(null, message);
-                return "";
-            }
-            SessionUtil.setLoggedInPerson(user);
-            return "home.xhtml?faces-redirect=true";
+        LOGGER.info("The User: " + name + " attempt to Login");
+        Person user = personDAO.findPersonByNameAndPassword(name.toLowerCase(), password);
+        if (user == null) {
+            FacesMessage message = new FacesMessage(
+                    "Falsche Angabe",
+                    "Der eingegebene Name oder die Password ist falsch. Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return "";
         }
-        return "addGhostNet.xhtml?faces-redirect=true";
+        SessionUtil.setLoggedInPerson(user);
+        return "home.xhtml?faces-redirect=true";
+
     }
 
     /**
-     * Loggt den Benutzer aus und leitet zur Login-Seite weiter.
+     * Logs the user out and redirects to the login page.
      *
-     * @return die Zielseite nach dem Logout.
+     * @return the target page after logout.
      */
     public String logout() {
         SessionUtil.logout();

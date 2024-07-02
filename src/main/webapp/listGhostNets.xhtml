@@ -3,82 +3,85 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
-<h:head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>List of Ghost Nets</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/styles.css"/>
-    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCvCDkYieuUBmMWon_mfLAfjuaeuosuqow&amp;sensor=true"></script>
-</h:head>
-<h:body styleClass="ghost-nets__body">
+<f:view contentType="text/html;charset=UTF-8" encoding="UTF-8">
+    <h:head>
+<!--        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+        <title>List of Ghost Nets</title>
+        <script src="https://maps.google.com/maps/api/js?key=AIzaSyCvCDkYieuUBmMWon_mfLAfjuaeuosuqow&amp;sensor=true"></script>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
+    <h:body styleClass="ghost-nets__body">
         <ui:include src="/WEB-INF/includes/menuBar.xhtml"/>
-    <p:gmap id="map" center="41.381542, 2.122893" zoom="3" type="HYBRID"
-            model="#{ghostNetController.simpleModel}" styleClass="ghost-net__map"
-            rendered="${personController.loggedInPersonRecoverer}"/>
-    <h:form id="mainForm">
-        <p:remoteCommand name="refreshData" actionListener="#{ghostNetController.populateMapWithGhostNets}"
-                         update=":mainForm:netTable :map"/>
-        <p:remoteCommand name="updateMenuButton" update=":mainForm:netTable:menuButton"/>
-        <div class="card ghost-nets__table-container">
-            <p:dataTable id="netTable" var="net" widgetVar="netTable" value="#{ghostNetController.getGhostNets()}"
-                         emptyMessage="Keine Geisternetze gefunden."
-                         filteredValue="#{ghostNetController.filteredGhostNets}"
-                         filterBy="#{ghostNetController.filterBy}" styleClass="ghost-net__table"
-                         scrollHeight="250">
-                <f:facet name="header">
-                    Geister Netze
-                </f:facet>
-                <p:column headerText="ID" value="#{net.id}">
-                    <h:outputText value="#{net.id}"/>
-                </p:column>
-                <p:column headerText="Breitengrad">
-                    <h:outputText value="#{net.latitude}"/>
-                </p:column>
-                <p:column headerText="Längengrad">
-                    <h:outputText value="#{net.longitude}"/>
-                </p:column>
-                <p:column headerText="Größe">
-                    <h:outputText value="#{net.estimatedSize}"/>
-                </p:column>
-                <p:column headerText="Status" field="status" filterMatchMode="exact">
-                    <f:facet name="filter">
-                        <p:selectOneMenu value="#{ghostNetController.filterBy.filterValue}"
-                                         onchange="PF('netTable').filter(); updateMenuButton();"
-                                         styleClass="ui-custom-filter">
-                            <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
-                            <f:selectItems value="#{ghostNetController.netStatuses}" var="status"
-                                           itemLabel="${ghostNetController.getStatusInGerman(status)}"
-                                           noSelectionOption="true"/>
-                            <p:ajax event="change" listener="#{ghostNetController.toggleSplitButton}"
-                                    update=":mainForm:netTable"/>
-                        </p:selectOneMenu>
+        <p:gmap id="map" center="41.381542, 2.122893" zoom="3" type="HYBRID"
+                model="#{ghostNetController.simpleModel}" styleClass="ghost-net__map"
+                rendered="${personController.loggedInPersonRecoverer}"/>
+        <h:form id="mainForm">
+            <p:remoteCommand name="refreshData" actionListener="#{ghostNetController.populateMapWithGhostNets}"
+                             update=":mainForm:netTable :map"/>
+            <p:remoteCommand name="updateMenuButton" update=":mainForm:netTable:menuButton"/>
+            <div class="card ghost-nets__table-container">
+                <p:dataTable id="netTable" var="net" widgetVar="netTable" value="#{ghostNetController.getGhostNets()}"
+                             emptyMessage="Keine Geisternetze gefunden."
+                             filteredValue="#{ghostNetController.filteredGhostNets}"
+                             filterBy="#{ghostNetController.filterBy}" styleClass="ghost-net__table"
+                             scrollHeight="250">
+                    <f:facet name="header">
+                        Geister Netze
                     </f:facet>
-                    <h:outputText id="status" value="#{ghostNetController.getStatusInGerman(net.status)}"/>
-                </p:column>
-                <p:column headerText="Aktionen">
-                    <p:menuButton id="menuButton" value="Aktionen" disabled="${ghostNetController.disableMenuButton}">
-                        <p:menuitem value="Bergung Eintragen"
-                                    actionListener="#{ghostNetController.updateStatus(net.id, 'RECOVERY_PENDING')}"
-                                    disabled="#{!ghostNetController.isReportRecoveryPendingAllowed(net)}"
-                                    icon="pi pi-pencil" oncomplete="refreshData()"/>
+                    <p:column headerText="ID" value="#{net.id}">
+                        <h:outputText value="#{net.id}"/>
+                    </p:column>
+                    <p:column headerText="Breitengrad">
+                        <h:outputText value="#{net.latitude}"/>
+                    </p:column>
+                    <p:column headerText="Längengrad">
+                        <h:outputText value="#{net.longitude}"/>
+                    </p:column>
+                    <p:column headerText="Größe">
+                        <h:outputText value="#{net.estimatedSize}"/>
+                    </p:column>
+                    <p:column headerText="Status" field="status" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu value="#{ghostNetController.filterBy.filterValue}"
+                                             onchange="PF('netTable').filter(); updateMenuButton();"
+                                             styleClass="ui-custom-filter">
+                                <f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{ghostNetController.netStatuses}" var="status"
+                                               itemLabel="${ghostNetController.getStatusInGerman(status)}"
+                                               noSelectionOption="true"/>
+                                <p:ajax event="change" listener="#{ghostNetController.toggleSplitButton}"
+                                        update=":mainForm:netTable"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText id="status" value="#{ghostNetController.getStatusInGerman(net.status)}"/>
+                    </p:column>
+                    <p:column headerText="Aktionen">
+                        <p:menuButton id="menuButton" value="Aktionen"
+                                      disabled="${ghostNetController.disableMenuButton}">
+                            <p:menuitem value="Bergung Eintragen"
+                                        actionListener="#{ghostNetController.updateStatus(net.id, 'RECOVERY_PENDING')}"
+                                        disabled="#{!ghostNetController.isReportRecoveryPendingAllowed(net)}"
+                                        icon="pi pi-pencil" oncomplete="refreshData()"/>
 
-                        <p:menuitem value="Geborgen Melden"
-                                    actionListener="#{ghostNetController.updateStatus(net.id,'RECOVERED')}"
-                                    disabled="#{!ghostNetController.isReportRecoveredAllowed(net)}"
-                                    update=":mainForm:netTable" icon="pi pi-heart-fill"/>
-                        <p:menuitem value="Verschollen Melden"
-                                    actionListener="#{ghostNetController.updateStatus(net.id, 'LOST')}"
-                                    disabled="#{!ghostNetController.isReportLostAllowed(net)}"
-                                    update=":mainForm:netTable" icon="pi pi-eye-slash"/>
-                    </p:menuButton>
-                </p:column>
-            </p:dataTable>
-        </div>
-    </h:form>
-</h:body>
+                            <p:menuitem value="Geborgen Melden"
+                                        actionListener="#{ghostNetController.updateStatus(net.id,'RECOVERED')}"
+                                        disabled="#{!ghostNetController.isReportRecoveredAllowed(net)}"
+                                        update=":mainForm:netTable" icon="pi pi-heart-fill"/>
+                            <p:menuitem value="Verschollen Melden"
+                                        actionListener="#{ghostNetController.updateStatus(net.id, 'LOST')}"
+                                        disabled="#{!ghostNetController.isReportLostAllowed(net)}"
+                                        update=":mainForm:netTable" icon="pi pi-eye-slash"/>
+                        </p:menuButton>
+                    </p:column>
+                </p:dataTable>
+            </div>
+        </h:form>
+    </h:body>
+</f:view>
 </html>
 
 
