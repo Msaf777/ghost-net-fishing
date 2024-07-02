@@ -14,8 +14,4 @@ Geisternetze stellen eine erhebliche Gefahr für das marine Ökosystem dar, da s
 ## Technologien
 - **Frontend:** JavaServer Faces (JSF)
 - **Backend:** Java EE für die Business-Logik
-- **Datenhaltung:** JPA mit Hibernate, verbunden mit einer relationalen Datenbank(Oracle)
-
-## Setup
-Folgen Sie den Anweisungen im `INSTALL.md`, um die Anwendung lokal einzurichten und auszuführen.
-
+- **Datenhaltung:** JPA mit Hibernate, verbunden mit einer relationalen Datenbank(Apache Derby)
